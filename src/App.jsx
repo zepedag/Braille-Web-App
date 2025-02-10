@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import brailleDict from "./braille-resources/brailleDictionary";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [inputText, setInputText] = useState("");
+  const [brailleText, setBrailleText] = useState("");
+
+  // Función de conversión
+  const convertToBraille = () => {
+    const converted = inputText
+      .toLowerCase()
+      .split("")
+      .map(char => brailleDict[char] || "?") // Si no está en el diccionario, mostrar "?"
+      .join("");
+    setBrailleText(converted);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR updates.
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <h1 className="text-2xl font-bold mb-4">Convertidor a Braille</h1>
+      <input
+        type="text"
+        value={inputText}
+        onChange={(e) => setInputText(e.target.value)}
+        placeholder="Escribe aquí..."
+        className="border rounded p-2 mb-2 w-64 text-center"
+      />
+      <button
+        onClick={convertToBraille}
+        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Convertir
+      </button>
+      <p className="mt-4 text-2xl">{brailleText}</p>
+    </div>
+  );
 }
 
-export default App
+export default App;
