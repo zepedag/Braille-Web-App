@@ -1,5 +1,6 @@
 import { useState } from "react";
 import brailleDict from "./braille-resources/brailleDictionary";
+import Navbar from "./NavBar";
 
 function App() {
   const [inputText, setInputText] = useState("");
@@ -16,7 +17,9 @@ function App() {
   };
 
   return (
+    
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+      <Navbar />
       <h1 className="text-2xl font-bold mb-4">Convertidor a Braille</h1>
       <input
         type="text"

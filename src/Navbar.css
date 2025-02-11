@@ -1,0 +1,37 @@
+/* Estilos para la barra de navegación */
+.navbar {
+    background-color: #333;       /* Color de fondo */
+    color: white;                 /* Color del texto */
+    display: flex;                /* Utilizamos flexbox para distribuir el contenido */
+    justify-content: space-between; /* Separa el título de los botones */
+    align-items: center;          /* Centra verticalmente el contenido */
+    padding: 10px 20px;           /* Espaciado interno */
+  }
+  
+  /* Estilo para el título de la navbar */
+  .navbar-title {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  /* Contenedor para los botones */
+  .navbar-buttons {
+    display: flex;
+    gap: 10px; /* Espacio entre botones */
+  }
+  
+  /* Estilos para los botones */
+  .navbar-button {
+    background-color: #555;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .navbar-button:hover {
+    background-color: #777;
+  }
+  
