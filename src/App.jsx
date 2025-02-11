@@ -1,6 +1,6 @@
 import { useState } from "react";
 import brailleDict from "./braille-resources/brailleDictionary";
-import Navbar from "./NavBar";
+import Navbar from "./models/NavBar";
 
 function App() {
   const [inputText, setInputText] = useState("");

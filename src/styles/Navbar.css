@@ -6,6 +6,11 @@
     justify-content: space-between; /* Separa el título de los botones */
     align-items: center;          /* Centra verticalmente el contenido */
     padding: 10px 20px;           /* Espaciado interno */
+    position: fixed;  /* Fija la navbar en la parte superior */
+    top: 0;           /* La coloca en la parte superior */
+    left: 0;          /* Asegura que comience desde el borde izquierdo */
+    width: 100%;      /* Ocupa toda la extensión horizontal */
+    z-index: 1000;    /* Asegura que esté por encima de otros elementos */
   }
   
   /* Estilo para el título de la navbar */
