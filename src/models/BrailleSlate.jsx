@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/BrailleSlate.css"; // Asegúrate de que la ruta sea correcta
+import "../styles/BrailleSlate.css";
 
 const BrailleSlate = () => {
   // Cada bloque es un arreglo de 6 celdas, inicialmente todas sin marcar (false)
