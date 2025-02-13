@@ -1,0 +1,36 @@
+
+
+.braille-slate {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .braille-block {
+    display: grid;
+    grid-template-columns: repeat(2, 40px);
+    grid-template-rows: repeat(3, 40px);
+    gap: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .braille-cell {
+    width: 40px;
+    height: 40px;
+    background-color: #eee;
+    border: 1px solid #999;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Estilo cuando la celda está marcada */
+  .braille-cell.active {
+    background-color: #333;
+    border: none;
+    border-radius: 50%;
+  }
+  
