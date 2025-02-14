@@ -17,22 +17,21 @@ const BrailleConverter = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-4">Convertidor a Braille</h1>
-      <input
-        type="text"
-        value={inputText}
-        onChange={(e) => setInputText(e.target.value)}
-        placeholder="Escribe aquí..."
-        className="border rounded p-2 mb-2 w-64 text-center"
-      />
-      <button
-        onClick={convertToBraille}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"
-      >
-        Convertir
-      </button>
-      <p className="mt-4 text-2xl">{brailleText}</p>
+    <div className="braille-container">
+      <div className="braille-card">
+        <h1 className="braille-title">Convertidor a Braille</h1>
+        <input
+          type="text"
+          value={inputText}
+          onChange={(e) => setInputText(e.target.value)}
+          placeholder="Escribe aquí..."
+          className="braille-input"
+        />
+        <button onClick={convertToBraille} className="braille-button">
+          Convertir
+        </button>
+        <p className="braille-output">{brailleText}</p>
+      </div>
     </div>
   );
 };
