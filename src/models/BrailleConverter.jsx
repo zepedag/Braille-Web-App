@@ -1,5 +1,6 @@
 import { useState } from "react";
 import brailleDict from "../braille-resources/brailleDictionary";
+import "../styles/BrailleConverter.css";
 
 const BrailleConverter = () => {
   const [inputText, setInputText] = useState("");
