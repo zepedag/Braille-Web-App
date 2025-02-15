@@ -119,4 +119,4 @@ const BrailleSlate = () => {
   );
 };
 
-export default BrailleSlate;
+export default BrailleSlate;  
