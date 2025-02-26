@@ -1,0 +1,102 @@
+.wordBank {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.wordBank .braille-block-container {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.wordBank .braille-block {
+    display: grid;
+    grid-template-columns: repeat(2, 40px);
+    grid-template-rows: repeat(3, 40px);
+    gap: 5px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: auto;
+}
+
+.wordBank .braille-cell {
+    width: 40px;
+    height: 40px;
+    background-color: #eee;
+    border: 1px solid #999;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wordBank .braille-cell.active {
+    background-color: #333;
+    border: none;
+    border-radius: 50%;
+}
+
+.wordBank .recognized-character {
+    margin-top: 8px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.wordBank .active-block .braille-block {
+    border: 8px solid green;
+}
+
+.wordBank .word-to-write {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.wordBank .message {
+    font-size: 20px;
+    color: green;
+    margin-top: 20px;
+}
+
+.wordBank .score,
+.wordBank .errors {
+    font-size: 18px;
+    margin-top: 10px;
+}
+
+.wordBank button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+}
+
+.wordBank button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.wordBank button:hover:not(:disabled) {
+    background-color: #0056b3;
+}
+
+.incorrect-block .braille-block {
+    border: 20px solid red; 
+  }
+  .active-block .braille-block {
+    border: 10px solid green; /* Marco verde para el bloque activo */
+  }
+  
+  .incorrect-block .braille-block {
+    border: 10px solid red; /* Marco rojo para bloques incorrectos */
+  }
+  .countdown {
+    font-size: 20px;
+    color: red;
+    margin-top: 20px;
+  }

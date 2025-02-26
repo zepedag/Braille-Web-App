@@ -23,6 +23,7 @@
   .navbar-buttons {
     display: flex;
     gap: 10px; /* Espacio entre botones */
+    padding-right: 50px;
   }
   
   .navbar-button {
