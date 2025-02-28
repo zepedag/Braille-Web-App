@@ -1,69 +1,88 @@
 /* Estilos generales */
 .braille-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: black;
-    padding: 20px;
-    width: 100vw;
-    height: 100vh;
-    border-radius: 12px;
-  }
-  /*conetenedor de la tarjeta*/
-  .braille-card {
-    background: black;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #d4e0ec; /* Fondo más claro y suave */
+  padding: 20px;
+  width: 100vw;
+  height: 100vh;
+  border-radius: 12px;
+}
 
-  }
-  
+/* Contenedor de la tarjeta */
+.braille-card {
+  background: rgb(222, 231, 248); /* Fondo blanco para la tarjeta */
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 500px; /* Limitar el ancho para mejor legibilidad */
+  width: 100%;
+}
 
-  .braille-title {
-    font-size: 70px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #FFFFFF;
-  }
-  
-  .braille-input {
-    width: 100%;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    text-align: center;
-    outline: none;
-    transition: border-color 0.3s ease-in-out;
-  }
-  
-  .braille-input:focus {
-    border-color: #007bff;
-  }
-  
-  .braille-button {
-    background-color: #007bff;
-    color: white;
-    font-size: 16px;
-    padding: 10px 16px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-    margin-top: 10px;
-    width: 100%;
-  }
-  
-  .braille-button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Resultado */
-  .braille-output {
-    font-size: 70px;
-    font-weight: bold;
-    margin-top: 15px;
-    color: green;
-  }
-  
+.braille-title {
+  font-size: 48px; /* Tamaño de fuente más moderado */
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #2c3e50; /* Color oscuro para el título */
+}
+
+.braille-input {
+  width: 80%;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  padding: 10px;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+  margin-bottom: 15px;
+}
+
+.braille-input:focus {
+  border-color: #3498db; /* Color azul más vibrante al enfocar */
+}
+
+.braille-button {
+  background-color: #3498db; /* Color azul más vibrante */
+  color: white;
+  font-size: 16px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.braille-button:hover {
+  background-color: #2980b9; /* Color azul más oscuro al pasar el mouse */
+}
+
+/* Resultado */
+.braille-output {
+  font-size: 48px; /* Tamaño de fuente más moderado */
+  font-weight: bold;
+  margin-top: 20px;
+  color: #078b3e; /* Color verde más suave */
+}
+
+/* Estilos adicionales para mejorar la experiencia */
+.braille-card p {
+  font-size: 60px;
+  color: #10af15; /* Color gris para texto secundario */
+  margin-bottom: 20px;
+}
+
+.braille-card a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.braille-card a:hover {
+  text-decoration: underline;
+}

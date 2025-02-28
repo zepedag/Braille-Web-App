@@ -4,13 +4,13 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #04070a; /* Color de texto más suave */
+  background-color: #d4e0ec; /* Fondo más claro y relajante */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -20,11 +20,11 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #3498db; /* Azul más vibrante para enlaces */
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #2980b9; /* Azul más oscuro al pasar el mouse */
 }
 
 body {
@@ -36,38 +36,69 @@ body {
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 5.2em;
   line-height: 1.1;
+  color: #2c3e50; /* Color oscuro para el título */
 }
 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.8em 1.5em; /* Botones más grandes */
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #3498db; /* Azul más vibrante */
+  color: white; /* Texto en blanco */
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.25s, transform 0.2s;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: #2980b9; /* Azul más oscuro al pasar el mouse */
+  transform: scale(1.05); /* Efecto de escala al pasar el mouse */
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 4px auto #3498db; /* Borde de enfoque en azul */
 }
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #2c3e50;
+    background-color: #f0f4f8;
   }
   a:hover {
-    color: #747bff;
+    color: #2980b9;
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #3498db;
+    color: white;
   }
+}
+
+/* Estilos adicionales para mejorar la experiencia */
+.container {
+  text-align: center;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+}
+
+.container p {
+  font-size: 1.2em;
+  color: #7f8c8d; /* Color gris para texto secundario */
+  margin-bottom: 20px;
+}
+
+.container a {
+  color: #3498db;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.container a:hover {
+  text-decoration: underline;
 }

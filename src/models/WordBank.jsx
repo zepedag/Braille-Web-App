@@ -66,12 +66,14 @@ const WordBank = () => {
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [currentBlock, blocks.length]);
 
+
   const handleCellClick = (blockIndex, cellIndex) => {
     setBlocks(prevBlocks => {
       const newBlocks = prevBlocks.map(block => [...block]);
       newBlocks[blockIndex][cellIndex] = !newBlocks[blockIndex][cellIndex];
       return newBlocks;
     });
+    setCurrentBlock(blockIndex); // Resalta el bloque al hacer clic
   };
 
   useEffect(() => {
@@ -103,31 +105,14 @@ const WordBank = () => {
 
   const checkWord = () => {
     const writtenWord = blocks.map((block, index) => getCharacterFromBlock(block, index)).join("");
-
-    // Verifica cuántas letras son correctas
-    let correctLetters = 0;
-    const incorrectIndices = [];
-    for (let i = 0; i < writtenWord.length; i++) {
-      if (writtenWord[i] === currentWord[i]) {
-        correctLetters++;
-      } else {
-        incorrectIndices.push(i); // Almacena los índices de los bloques incorrectos
-      }
-    }
-
-    // Calcula la puntuación
-    let points = correctLetters; // 1 punto por cada letra correcta
+  
+    // Verifica si la palabra está completamente correcta
     if (writtenWord === currentWord) {
-      points += 5; // 5 puntos adicionales si la palabra está completa y correcta
-    }
-
-    // Actualiza la puntuación
-    setScore(prevScore => prevScore + points);
-
-    // Muestra el mensaje correspondiente
-    if (writtenWord === currentWord) {
+      setScore(prevScore => prevScore + 10); // Suma 5 puntos si la palabra está correcta
       setMessage("¡Correcto! ¡Buen trabajo!");
-      if (score + points >= basicWords.length * 6) { // Verifica si se completaron todas las palabras
+  
+      // Verifica si se completaron todas las palabras
+      if (score + 10 >= basicWords.length * 10) { // Ahora se compara con basicWords.length * 5
         setMessage("¡Felicidades! Has completado todas las palabras.");
         setGameOver(true);
       }
@@ -141,12 +126,18 @@ const WordBank = () => {
         setMessage("Inténtalo de nuevo.");
       }
     }
-
+  
     // Marca los bloques incorrectos
+    const incorrectIndices = [];
+    for (let i = 0; i < writtenWord.length; i++) {
+      if (writtenWord[i] !== currentWord[i]) {
+        incorrectIndices.push(i);
+      }
+    }
     setIncorrectBlocks(incorrectIndices);
-
+  
     // Desactiva el recuadro verde
-    setCurrentBlock(null); // Establece currentBlock en null para desactivar el marco verde
+    setCurrentBlock(null);
   };
 
   const startCountdown = () => {

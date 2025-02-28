@@ -51,6 +51,7 @@ const BrailleSlate = () => {
       newBlocks[blockIndex][cellIndex] = !newBlocks[blockIndex][cellIndex];
       return newBlocks;
     });
+    setCurrentBlock(blockIndex); // Resalta el bloque al hacer clic
   };
 
   useEffect(() => {

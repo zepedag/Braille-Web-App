@@ -1,51 +1,52 @@
-
-
 .braille-slate {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+}
 
-  .braille-block-container {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .braille-block {
-    display: grid;
-    grid-template-columns: repeat(2, 40px);
-    grid-template-rows: repeat(3, 40px);
-    gap: 5px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: auto;
-  }
-  
-  .braille-cell {
-    width: 40px;
-    height: 40px;
-    background-color: #eee;
-    border: 1px solid #999;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .braille-cell.active {
-    background-color: #333;
-    border: none;
-    border-radius: 50%;
-  }
+.braille-block-container {
+  margin-bottom: 20px;
+  text-align: center;
+}
 
-  .recognized-letter {
-    margin-top: 8px;
-    font-size: 24px;
-    font-weight: bold;
-  }
+.braille-block {
+  display: grid;
+  grid-template-columns: repeat(2, 40px);
+  grid-template-rows: repeat(3, 40px);
+  gap: 5px;
+  border: 3px solid black; /* Marco negro y más grueso */
+  padding: 10px;
+  margin: auto;
+}
 
-  .active-block .braille-block {
-    border: 8px solid green;
-  }
-  
+.braille-cell {
+  width: 40px;
+  height: 40px;
+  background-color: #eee;
+  border: 1px solid #999;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.braille-cell.active {
+  background-color: #333;
+  border: none;
+  border-radius: 50%;
+}
+
+.recognized-character {
+  margin-top: 8px;
+  font-size: 80px; /* Ajusta este valor según sea necesario */
+  font-weight: bold;
+}
+
+.active-block .braille-block {
+  border: 8px solid green; /* Este estilo permanece igual */
+}
+.braille-block.full {
+  background-color: lightgray;
+  border: 3px solid black;
+}

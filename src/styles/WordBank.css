@@ -15,7 +15,7 @@
     grid-template-columns: repeat(2, 40px);
     grid-template-rows: repeat(3, 40px);
     gap: 5px;
-    border: 1px solid #ccc;
+    border: 3px solid black; 
     padding: 10px;
     margin: auto;
 }
@@ -87,16 +87,13 @@
 
 .incorrect-block .braille-block {
     border: 20px solid red; 
-  }
-  .active-block .braille-block {
+}
+.active-block .braille-block {
     border: 10px solid green; /* Marco verde para el bloque activo */
-  }
+}
   
-  .incorrect-block .braille-block {
-    border: 10px solid red; /* Marco rojo para bloques incorrectos */
-  }
-  .countdown {
+.countdown {
     font-size: 20px;
     color: red;
     margin-top: 20px;
-  }
+}
