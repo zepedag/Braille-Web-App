@@ -1,9 +1,28 @@
+.main-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.braille-slate-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--background-color);
+  overflow-x: auto; 
+  max-width: 90vw; 
+  border: 2px solid var(--border-color); 
+}
+
 .braille-slate {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; 
   gap: 20px;
   padding: 20px;
+  background-color: var(--background-color);
 }
+
 
 .braille-block-container {
   margin-bottom: 20px;
@@ -15,16 +34,17 @@
   grid-template-columns: repeat(2, 40px);
   grid-template-rows: repeat(3, 40px);
   gap: 5px;
-  border: 3px solid black; /* Marco negro y más grueso */
+  border: 3px solid var(--block-border-color);
   padding: 10px;
   margin: auto;
+  background-color: var(--cell-bg2);
 }
 
 .braille-cell {
   width: 40px;
   height: 40px;
-  background-color: #eee;
-  border: 1px solid #999;
+  background-color: var(--cell-bg);
+  border: 1px solid var(--border-color);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -32,21 +52,38 @@
 }
 
 .braille-cell.active {
-  background-color: #333;
+  background-color: var(--active-cell-bg);
   border: none;
   border-radius: 50%;
 }
 
 .recognized-character {
   margin-top: 8px;
-  font-size: 80px; /* Ajusta este valor según sea necesario */
+  font-size: 40px;
   font-weight: bold;
+  color: var(--text-color);
 }
 
 .active-block .braille-block {
-  border: 8px solid green; /* Este estilo permanece igual */
+  border: 10px solid var(--correct-color);
 }
+
 .braille-block.full {
-  background-color: lightgray;
-  border: 3px solid black;
+  background-color: var(--full-block-bg);
+  border: 3px solid var(--block-border-color);
+}
+
+.image-container {
+  position: absolute;
+  top: 100px;
+  left: 40px;
+  z-index: 1000;
+}
+
+.corner-image {
+  width: 500px;
+  height: auto;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

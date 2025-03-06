@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/WordBank.css";
+import imagenEsquina from "../assets/MaquinaPerkins.png";
 
 const braillePatternToLetter = {
   "100000": "a", "101000": "b", "110000": "c", "110100": "d", "100100": "e",
@@ -39,6 +40,7 @@ const WordBank = () => {
   const [gameOver, setGameOver] = useState(false);
   const [incorrectBlocks, setIncorrectBlocks] = useState([]);
   const [countdown, setCountdown] = useState(0); // Contador de 10 segundos
+  const [showLetters, setShowLetters] = useState(false); // Estado para mostrar letras
 
   useEffect(() => {
     if (!gameOver) {
@@ -61,11 +63,10 @@ const WordBank = () => {
         setCurrentBlock(prev => (prev > 0 ? prev - 1 : prev));
       }
     };
-    
+
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [currentBlock, blocks.length]);
-
 
   const handleCellClick = (blockIndex, cellIndex) => {
     setBlocks(prevBlocks => {
@@ -89,11 +90,11 @@ const WordBank = () => {
 
   const getCharacterFromBlock = (block, index) => {
     const pattern = block.map(cell => (cell ? "1" : "0")).join("");
-    
+
     if (numberModeBlocks.includes(index - 1)) {
       return braillePatternToNumber[pattern] || "";
     }
-    
+
     return braillePatternToLetter[pattern] || "";
   };
 
@@ -102,28 +103,38 @@ const WordBank = () => {
       setBlocks(prevBlocks => [...prevBlocks, [...initialBlock]]);
     }
   }, [blocks]);
-
   const checkWord = () => {
+    setShowLetters(true); // Mostrar las letras al verificar
+  
     const writtenWord = blocks.map((block, index) => getCharacterFromBlock(block, index)).join("");
+  
+    // Contar cuántas letras coinciden
+    let correctLetters = 0;
+    for (let i = 0; i < writtenWord.length; i++) {
+      if (writtenWord[i] === currentWord[i]) {
+        correctLetters++;
+      }
+    }
   
     // Verifica si la palabra está completamente correcta
     if (writtenWord === currentWord) {
-      setScore(prevScore => prevScore + 10); // Suma 5 puntos si la palabra está correcta
+      setScore(prevScore => prevScore + 10); // Suma 10 puntos si la palabra está correcta
       setMessage("¡Correcto! ¡Buen trabajo!");
   
       // Verifica si se completaron todas las palabras
-      if (score + 10 >= basicWords.length * 10) { // Ahora se compara con basicWords.length * 5
+      if (score + 10 >= basicWords.length * 10) {
         setMessage("¡Felicidades! Has completado todas las palabras.");
         setGameOver(true);
       }
     } else {
+      setScore(prevScore => prevScore + correctLetters); // Suma 1 punto por cada letra correcta
       setErrors(prevErrors => prevErrors + 1);
       if (errors + 1 >= 3) {
         setMessage("¡Has cometido 3 errores! Juego terminado.");
         setGameOver(true);
         startCountdown(); // Inicia el contador de 10 segundos
       } else {
-        setMessage("Inténtalo de nuevo.");
+        setMessage(`Tienes ${correctLetters} letras correctas. Inténtalo de nuevo.`);
       }
     }
   
@@ -139,7 +150,6 @@ const WordBank = () => {
     // Desactiva el recuadro verde
     setCurrentBlock(null);
   };
-
   const startCountdown = () => {
     setCountdown(10); // Inicia el contador en 10 segundos
     const interval = setInterval(() => {
@@ -162,6 +172,7 @@ const WordBank = () => {
     setCurrentWord(basicWords[Math.floor(Math.random() * basicWords.length)]);
     setBlocks(Array.from({ length: 8 }, () => [...initialBlock]));
     setCountdown(0); // Reinicia el contador
+    setShowLetters(false); // Oculta las letras
   };
 
   const newAttempt = () => {
@@ -170,6 +181,7 @@ const WordBank = () => {
     setIncorrectBlocks([]); // Limpia los bloques incorrectos
     setCurrentBlock(0); // Reinicia al primer bloque
     setMessage(""); // Limpia el mensaje
+    setShowLetters(false); // Oculta las letras
   };
 
   const sameWordAttempt = () => {
@@ -177,46 +189,65 @@ const WordBank = () => {
     setIncorrectBlocks([]); // Limpia los bloques incorrectos
     setCurrentBlock(0); // Reinicia al primer bloque
     setMessage(""); // Limpia el mensaje
+    setShowLetters(false); // Oculta las letras
   };
 
   return (
     <div className="wordBank">
+      {/* Palabra a escribir */}
       <div className="word-to-write">Palabra a escribir: {currentWord}</div>
-      {blocks.map((block, blockIndex) => {
-        const character = getCharacterFromBlock(block, blockIndex);
-        return (
-          <div
-            key={blockIndex}
-            className={`braille-block-container ${
-              currentBlock !== null && blockIndex === currentBlock ? "active-block" : ""
-            } ${
-              incorrectBlocks.includes(blockIndex) ? "incorrect-block" : ""
-            }`}
-          >
-            <div className="braille-block">
-              {block.map((cell, cellIndex) => (
-                <div
-                  key={cellIndex}
-                  className={`braille-cell ${cell ? "active" : ""}`}
-                  onClick={() => handleCellClick(blockIndex, cellIndex)}
-                />
-              ))}
+  
+      {/* Bloques de Braille */}
+      <div className="braille-blocks-container">
+        {blocks.map((block, blockIndex) => {
+          const character = getCharacterFromBlock(block, blockIndex);
+          return (
+            <div
+              key={blockIndex}
+              className={`braille-block-container ${
+                currentBlock !== null && blockIndex === currentBlock ? "active-block" : ""
+              } ${
+                incorrectBlocks.includes(blockIndex) ? "incorrect-block" : ""
+              }`}
+            >
+              <div className="braille-block">
+                {block.map((cell, cellIndex) => (
+                  <div
+                    key={cellIndex}
+                    className={`braille-cell ${cell ? "active" : ""}`}
+                    onClick={() => handleCellClick(blockIndex, cellIndex)}
+                  />
+                ))}
+              </div>
+              {showLetters && (
+                <div className="braille-letter">
+                  {character}
+                </div>
+              )}
             </div>
-            {character && <div className="recognized-character">{character}</div>}
+          );
+        })}
+      </div>
+  
+      {/* Botones y mensajes */}
+      <div className="controls-container">
+        <button onClick={checkWord} disabled={gameOver || countdown > 0}>Verificar</button>
+        <button onClick={newAttempt} disabled={gameOver || countdown > 0}>Nueva Palabra</button>
+        <button onClick={sameWordAttempt} disabled={gameOver || countdown > 0}>Misma Palabra</button>
+        {message && <div className="message">{message}</div>}
+        {countdown > 0 && (
+          <div className="countdown">
+            Reiniciando en {countdown} segundos...
           </div>
-        );
-      })}
-      <button onClick={checkWord} disabled={gameOver || countdown > 0}>Verificar</button>
-      <button onClick={newAttempt} disabled={gameOver || countdown > 0}>Nueva Palabra</button>
-      <button onClick={sameWordAttempt} disabled={gameOver || countdown > 0}>Misma Palabra</button>
-      {message && <div className="message">{message}</div>}
-      {countdown > 0 && (
-        <div className="countdown">
-          Reiniciando en {countdown} segundos...
-        </div>
-      )}
-      <div className="score">Puntuación: {score}</div>
-      <div className="errors">Errores: {errors}</div>
+        )}
+        <div className="score">Puntuación: {score}</div>
+        <div className="errors">Errores: {errors}</div>
+      </div>
+  
+      {/* Imagen en la esquina */}
+      <div className="image-container">
+        <img src={imagenEsquina} alt="Imagen en esquina" className="corner-image" />
+      </div>
     </div>
   );
 };
