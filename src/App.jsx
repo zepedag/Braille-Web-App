@@ -5,8 +5,8 @@ import BrailleSlate from "./models/BrailleSlate";
 import BrailleConverter from "./models/BrailleConverter";
 import WordBank from "./models/WordBank";
 import { useTheme } from "./hooks/useTheme";
-import logoClaro from "/Users/estrellaverdiguel/Documents/GitHub/Braille-Web-App/src/assets/LOGO_STEM-07.png";
-import logoOscuro from "/Users/estrellaverdiguel/Documents/GitHub/Braille-Web-App/src/assets/LOGO_STEM-08.png";
+import logoClaro from "./assets/LOGO_STEM-07.png";
+import logoOscuro from "./assets/LOGO_STEM-08.png";
 
 const Home = ({ theme }) => (
   <div className="home-container">
