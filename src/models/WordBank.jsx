@@ -231,6 +231,7 @@ const WordBank = ({ theme }) => {
                       key={cellIndex}
                       className={`braille-cell ${cell ? "active" : ""}`}
                       onClick={() => handleCellClick(blockIndex, cellIndex)}
+                      aria-label={`Celda ${cellIndex + 1} del bloque ${blockIndex + 1}, ${cell ? "activada" : "desactivada"}`}
                     />
                   ))}
                 </div>
@@ -246,10 +247,28 @@ const WordBank = ({ theme }) => {
       </div>
   
       <div className="controls-container">
-        <button onClick={checkWord} disabled={gameOver || countdown > 0}>Verificar</button>
-        <button onClick={newAttempt} disabled={gameOver || countdown > 0}>Nueva Palabra</button>
-        <button onClick={sameWordAttempt} disabled={gameOver || countdown > 0}>Misma Palabra</button>
-        {message && <div className="message">{message}</div>}
+        <button 
+          onClick={checkWord} 
+          disabled={gameOver || countdown > 0}
+          aria-label="Verificar la palabra ingresada"
+        >
+          Verificar
+        </button>
+        <button 
+          onClick={newAttempt} 
+          disabled={gameOver || countdown > 0}
+          aria-label="Generar una nueva palabra para escribir en Braille"
+        >
+          Nueva Palabra
+        </button>
+        <button 
+          onClick={sameWordAttempt} 
+          disabled={gameOver || countdown > 0}
+          aria-label="Intentar escribir la misma palabra nuevamente"
+        >
+          Misma Palabra
+        </button>
+        {message && <div className="message" aria-live="polite">{message}</div>}
         {countdown > 0 && (
           <div className="countdown">
             Reiniciando en {countdown} segundos...
@@ -259,24 +278,28 @@ const WordBank = ({ theme }) => {
         <div className="errors">Errores: {errors}</div>
       </div>
       <div className="image-container">
-        <img src={theme === 'dark' ? imagenEsquina2 : imagenEsquina} alt="Imagen en esquina" className="corner-image" />
+        <img 
+          src={theme === 'dark' ? imagenEsquina2 : imagenEsquina} 
+          alt="Imagen decorativa en la esquina" 
+          className="corner-image" 
+        />
       </div>  
       {showCatarina && (
         <div className="catarina-container">
-          <img src={catarina} alt="Catarina" className="catarina-gif" />
+          <img src={catarina} alt="Animación de Catarina" className="catarina-gif" />
         </div>
       )}
       {showFelicidades && (
         <div className="felicidades-container">
-          <img src={felicidades} alt="Felicidades" className="felicidades-gif" />
+          <img src={felicidades} alt="Animación de Felicidades" className="felicidades-gif" />
         </div>
       )}
       <div className="logo-container">
-            {theme === 'dark' ? (
-              <img src={logoOscuro} alt="Logo Oscuro" className="logo-design" />
-            ) : (
-              <img src={logoClaro} alt="Logo Claro" className="logo-design" />
-            )}
+        {theme === 'dark' ? (
+          <img src={logoOscuro} alt="Logo de la aplicación en modo oscuro" className="logo-design" />
+        ) : (
+          <img src={logoClaro} alt="Logo de la aplicación en modo claro" className="logo-design" />
+        )}
       </div>
     </div>
   );
