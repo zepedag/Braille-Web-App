@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../styles/BrailleSlate.css";
 import imagenEsquina from "../assets/MaquinaPerkins.png";
+import imagenEsquina2 from "../assets/MaquinaPerkinsNegro.png";
+import logoClaro from "../assets/LOGO_STEM-07.png";
+import logoOscuro from "../assets/LOGO_STEM-08.png";
 
 const braillePatternToLetter = {
   "100000": "a", "101000": "b", "110000": "c", "110100": "d", "100100": "e",
@@ -20,7 +23,7 @@ const braillePatternToNumber = {
 const NUMBER_INDICATOR = "010111";
 const keyMap = { "f": 0, "d": 1, "s": 2, "j": 3, "k": 4, "l": 5 };
 
-const BrailleSlate = () => {
+const BrailleSlate = ({ theme }) => { 
   const initialBlock = [false, false, false, false, false, false];
   const [blocks, setBlocks] = useState(() => Array.from({ length: 8 }, () => [...initialBlock]));
   const [currentBlock, setCurrentBlock] = useState(0);
@@ -41,7 +44,7 @@ const BrailleSlate = () => {
         setCurrentBlock(prev => (prev > 0 ? prev - 1 : prev));
       }
     };
-    
+
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [currentBlock, blocks.length]);
@@ -68,11 +71,11 @@ const BrailleSlate = () => {
 
   const getCharacterFromBlock = (block, index) => {
     const pattern = block.map(cell => (cell ? "1" : "0")).join("");
-    
+
     if (numberModeBlocks.includes(index - 1)) {
       return braillePatternToNumber[pattern] || "";
     }
-    
+
     return braillePatternToLetter[pattern] || "";
   };
 
@@ -80,7 +83,6 @@ const BrailleSlate = () => {
     if (blocks.every(block => block.some(cell => cell))) {
       setBlocks(prevBlocks => [...prevBlocks, [...initialBlock]]);
     }
-    
   }, [blocks]);
 
   return (
@@ -90,7 +92,12 @@ const BrailleSlate = () => {
           {blocks.map((block, blockIndex) => {
             const character = getCharacterFromBlock(block, blockIndex);
             return (
-              <div key={blockIndex} className={`braille-block-container ${blockIndex === currentBlock ? "active-block" : ""}`}>
+              <div
+                key={blockIndex}
+                className={`braille-block-container ${
+                  blockIndex === currentBlock ? "active-block" : ""
+                }`}
+              >
                 <div className="braille-block">
                   {block.map((cell, cellIndex) => (
                     <div
@@ -100,14 +107,23 @@ const BrailleSlate = () => {
                     />
                   ))}
                 </div>
-                {character && <div className="recognized-character">{character}</div>}
+                {character && (
+                  <div className="recognized-character">{character}</div>
+                )}
               </div>
             );
           })}
         </div>
       </div>
       <div className="image-container">
-        <img src={imagenEsquina} alt="Imagen en esquina" className="corner-image" />
+        <img src={theme === 'dark' ? imagenEsquina2 : imagenEsquina} alt="Imagen en esquina" className="corner-image" />
+      </div>  
+      <div className="logo-container">
+        {theme === 'dark' ? (
+          <img src={logoOscuro} alt="Logo Oscuro" className="logo-design" />
+        ) : (
+          <img src={logoClaro} alt="Logo Claro" className="logo-design" />
+        )}
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 import { useState } from "react";
 import brailleDict from "../braille-resources/brailleDictionary";
 import "../styles/BrailleConverter.css";
+import logoClaro from "../assets/LOGO_STEM-07.png";
+import logoOscuro from "../assets/LOGO_STEM-08.png";
 
-const BrailleConverter = () => {
+const BrailleConverter = ({ theme }) => {
   const [inputText, setInputText] = useState("");
   const [brailleText, setBrailleText] = useState("");
-
-  // Función de conversión
+  
   const convertToBraille = () => {
     const converted = inputText
       .toLowerCase()
@@ -31,6 +32,13 @@ const BrailleConverter = () => {
           Convertir
         </button>
         <p className="braille-output">{brailleText}</p>
+      </div>
+      <div className="logo-container">
+            {theme === 'dark' ? (
+              <img src={logoOscuro} alt="Logo Oscuro" className="logo-design" />
+            ) : (
+              <img src={logoClaro} alt="Logo Claro" className="logo-design" />
+            )}
       </div>
     </div>
   );

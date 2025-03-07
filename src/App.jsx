@@ -5,8 +5,10 @@ import BrailleSlate from "./models/BrailleSlate";
 import BrailleConverter from "./models/BrailleConverter";
 import WordBank from "./models/WordBank";
 import { useTheme } from "./hooks/useTheme";
+import logoClaro from "/Users/estrellaverdiguel/Documents/GitHub/Braille-Web-App/src/assets/LOGO_STEM-07.png";
+import logoOscuro from "/Users/estrellaverdiguel/Documents/GitHub/Braille-Web-App/src/assets/LOGO_STEM-08.png";
 
-const Home = () => (
+const Home = ({ theme }) => (
   <div className="home-container">
     <h1 className="welcome-title">Bienvenido a la App de Braille</h1>
     <div className="content-section">
@@ -37,6 +39,13 @@ const Home = () => (
         </div>
       </div>
     </div>
+    <div className="logo-container">
+      {theme === 'dark' ? (
+        <img src={logoOscuro} alt="Logo Oscuro" className="logo-design" />
+      ) : (
+        <img src={logoClaro} alt="Logo Claro" className="logo-design" />
+      )}
+    </div>
   </div>
 );
 
@@ -47,10 +56,10 @@ function App() {
     <Router>
       <Navbar theme={theme} setTheme={setTheme} />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/convert" element={<BrailleConverter />} />
-        <Route path="/slate" element={<BrailleSlate />} />
-        <Route path="/wordbank" element={<WordBank />} />
+        <Route path="/" element={<Home theme={theme} />} />
+        <Route path="/convert" element={<BrailleConverter theme={theme}/>} />
+        <Route path="/slate" element={<BrailleSlate theme={theme} />} />
+        <Route path="/wordbank" element={<WordBank theme={theme}/>} />
       </Routes>
     </Router>
   );

@@ -4,6 +4,8 @@ import imagenEsquina from "../assets/MaquinaPerkins.png";
 import imagenEsquina2 from "../assets/MaquinaPerkinsNegro.png";
 import catarina from "../assets/Catarina.gif";
 import felicidades from "../assets/Felicidades.gif";
+import logoClaro from "../assets/LOGO_STEM-07.png";
+import logoOscuro from "../assets/LOGO_STEM-08.png";
 
 const braillePatternToLetter = {
   "100000": "a", "101000": "b", "110000": "c", "110100": "d", "100100": "e",
@@ -29,14 +31,13 @@ const basicWords = [
   "calle", "escuela", "libro", "lápiz", "papel", "mesa", "silla", "puerta", "ventana", "pared",
   "techo", "suelo", "cama", "almohada", "manta", "ropa", "zapato", "sombrero", "reloj", "espejo",
   "plato", "vaso", "cuchara", "tenedor", "cuchillo", "comida", "bebida", "fruta", "verdura", "pan",
-  
   "canción", "corazón", "acción", "nación", "teléfono", "rápido", "público", "eléctrico", "sofá", "café",
   "mamá", "papá", "avión", "camión", "reunión", "inspiración", "prisión", "opinión", "educación", "tradición",
   "fácil", "difícil", "débil", "útil", "crédito", "médico", "pánico", "técnico", "música", "histórico"
 ];
 
 
-const WordBank = () => {
+const WordBank = ({ theme }) => {
   const initialBlock = [false, false, false, false, false, false];
   const [blocks, setBlocks] = useState(() => Array.from({ length: 8 }, () => [...initialBlock]));
   const [currentBlock, setCurrentBlock] = useState(0);
@@ -118,8 +119,6 @@ const WordBank = () => {
     setShowLetters(true); 
   
     const writtenWord = blocks.map((block, index) => getCharacterFromBlock(block, index)).join("");
-  
-    
     let correctLetters = 0;
     for (let i = 0; i < writtenWord.length; i++) {
       if (writtenWord[i] === currentWord[i]) {
@@ -257,9 +256,8 @@ const WordBank = () => {
         <div className="score">Puntuación: {score}</div>
         <div className="errors">Errores: {errors}</div>
       </div>
-  
       <div className="image-container">
-        <img src={imagenEsquina} alt="Imagen en esquina" className="corner-image" />
+        <img src={theme === 'dark' ? imagenEsquina2 : imagenEsquina} alt="Imagen en esquina" className="corner-image" />
       </div>  
       {showCatarina && (
         <div className="catarina-container">
@@ -271,6 +269,13 @@ const WordBank = () => {
           <img src={felicidades} alt="Felicidades" className="felicidades-gif" />
         </div>
       )}
+      <div className="logo-container">
+            {theme === 'dark' ? (
+              <img src={logoOscuro} alt="Logo Oscuro" className="logo-design" />
+            ) : (
+              <img src={logoClaro} alt="Logo Claro" className="logo-design" />
+            )}
+      </div>
     </div>
   );
 };

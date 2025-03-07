@@ -15,23 +15,6 @@
   margin-bottom: 20px;
 }
 
-.letter-container {
-  position: absolute;
-  display: grid;
-  grid-template-areas:
-    ". top ."
-    "left . right"
-    ". bottom .";
-  gap: 10px;
-}
-
-.letter-top,
-.letter-right,
-.letter-bottom,
-.letter-left {
-  text-align: center;
-  color: var(--text-color);
-}
 
 .braille-blocks-container {
   display: flex;
@@ -50,7 +33,7 @@
   overflow-x: auto; 
   white-space: nowrap; 
   gap: 5px;
-  padding: 10px;
+  padding: 20px;
   background-color: var(--background-color);
   scroll-behavior: smooth; 
 }
@@ -165,9 +148,6 @@
 .corner-image {
   width: 100px;
   height: auto;
-  border: 2px solid var(--border-color);
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .braille-blocks-container::-webkit-scrollbar {
