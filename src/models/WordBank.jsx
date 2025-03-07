@@ -115,11 +115,11 @@ const WordBank = () => {
     }
   }, [blocks]);
   const checkWord = () => {
-    setShowLetters(true); // Mostrar las letras al verificar
+    setShowLetters(true); 
   
     const writtenWord = blocks.map((block, index) => getCharacterFromBlock(block, index)).join("");
   
-    // Contar cuántas letras coinciden
+    
     let correctLetters = 0;
     for (let i = 0; i < writtenWord.length; i++) {
       if (writtenWord[i] === currentWord[i]) {
@@ -127,18 +127,18 @@ const WordBank = () => {
       }
     }
   
-    // Verifica si la palabra está completamente correcta
     if (writtenWord === currentWord) {
-      setScore(prevScore => prevScore + 10); // Suma 10 puntos si la palabra está correcta
+      setScore(prevScore => prevScore + 10); 
       setMessage("¡Correcto! ¡Buen trabajo!");
-  
-      // Verifica si se completaron todas las palabras
+      setShowCatarina(true);
+      setShowFelicidades(true);
+    
       if (score + 10 >= basicWords.length * 10) {
         setMessage("¡Felicidades! Has completado todas las palabras.");
         setGameOver(true);
       }
     } else {
-      setScore(prevScore => prevScore + correctLetters); // Suma 1 punto por cada letra correcta
+      setScore(prevScore => prevScore + correctLetters);
       setErrors(prevErrors => prevErrors + 1);
       if (errors + 1 >= 3) {
         setMessage("¡Has cometido 3 errores! Juego terminado.");
@@ -209,7 +209,6 @@ const WordBank = () => {
 
   return (
     <div className="wordBank">
-      {/* Palabra a escribir */}
       <div className="word-to-write">Palabra a escribir: {currentWord}</div>
   
       <div className="braille-blocks-container" ref={blocksContainerRef}>
@@ -261,9 +260,7 @@ const WordBank = () => {
   
       <div className="image-container">
         <img src={imagenEsquina} alt="Imagen en esquina" className="corner-image" />
-      </div>
-  
-  
+      </div>  
       {showCatarina && (
         <div className="catarina-container">
           <img src={catarina} alt="Catarina" className="catarina-gif" />

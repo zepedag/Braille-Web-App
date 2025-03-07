@@ -1,155 +1,213 @@
 .wordBank {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: var(--text-color);
-    background-color: var(--background-color); 
-  }
-  
-  .braille-and-letters-container {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .letter-container {
-    position: absolute;
-    display: grid;
-    grid-template-areas:
-      ". top ."
-      "left . right"
-      ". bottom .";
-    gap: 10px;
-  }
-  
-  .letter-top,
-  .letter-right,
-  .letter-bottom,
-  .letter-left {
-    text-align: center;
-    color: var(--text-color);
-  }
-  
-  .braille-blocks-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-  
-  .wordBank .braille-block {
-    display: grid;
-    grid-template-columns: repeat(2, 40px);
-    grid-template-rows: repeat(3, 40px);
-    gap: 5px;
-    border: 3px solid var(--block-border-color); 
-    padding: 10px;
-    margin: auto;
-    background-color: var(--cell-bg2); 
-  }
-  
-  .wordBank .braille-cell {
-    width: 40px;
-    height: 40px;
-    background-color: var(--cell-bg); 
-    border: 1px solid var(--border-color); 
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .wordBank .braille-cell.active {
-    background-color: var(--active-cell-bg); 
-    border: none;
-    border-radius: 50%;
-  }
-  .wordBank .active-block .braille-block {
-    border: 8px solid var(--correct-color); 
-  }
-  
-  .wordBank .word-to-write {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: var(--text-color); 
-  }
-  
-  .wordBank .message {
-    font-size: 20px;
-    color: var(--message-color);
-    margin-top: 20px;
-  }
-  
-  .wordBank .score,
-  .wordBank .errors {
-    font-size: 18px;
-    margin-top: 10px;
-    color: var(--text-color); 
-  }
-  
-  .wordBank button {
-    margin-top: 20px;
-    margin-right: 20px; 
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: var(--button-bg);
-    color: white;
-    border-radius: 5px;
-  }
-  
-  .wordBank button:last-child {
-    margin-right: 0; 
-  }
-  
-  .wordBank button:hover:not(:disabled) {
-    background-color: var(--button-hover); 
-  }
-  
-  .wordBank button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .incorrect-block .braille-block {
-    border: 10px solid var(--error-color); 
-  }
-  
-  .countdown {
-    font-size: 20px;
-    color: var(--error-color); 
-    margin-top: 20px;
-  }
-  
-  .wordBank .correct-word {
-    border: 10px solid var(--correct-color); 
-    padding: 5px;
-    border-radius: 5px;
-  }
-  
-  .braille-letter {
-    text-align: center;
-    font-size: 1.5em;
-    margin-top: 10px;
-    color: var(--text-color); 
-  }
-  
-  .image-container {
-    position: fixed;
-    top: 100px;
-    left: 40px;
-    z-index: 1000;
-  }
-  
-  .corner-image {
-    width: 100px;
-    height: auto;
-    border: 2px solid var(--border-color);
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-color);
+  background-color: var(--background-color); 
+}
+
+.braille-and-letters-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.letter-container {
+  position: absolute;
+  display: grid;
+  grid-template-areas:
+    ". top ."
+    "left . right"
+    ". bottom .";
+  gap: 10px;
+}
+
+.letter-top,
+.letter-right,
+.letter-bottom,
+.letter-left {
+  text-align: center;
+  color: var(--text-color);
+}
+
+.braille-blocks-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--background-color);
+  overflow-x: auto; 
+  max-width: 90vw; 
+  border: 2px solid var(--border-color2); 
+}
+
+.braille-slate {
+  display: flex;
+  flex-wrap: nowrap; 
+  overflow-x: auto; 
+  white-space: nowrap; 
+  gap: 5px;
+  padding: 10px;
+  background-color: var(--background-color);
+  scroll-behavior: smooth; 
+}
+
+.wordBank .braille-block {
+  display: grid;
+  grid-template-columns: repeat(2, 40px);
+  grid-template-rows: repeat(3, 40px);
+  gap: 5px;
+  border: 3px solid var(--block-border-color); 
+  padding: 10px;
+  margin: auto;
+  background-color: var(--cell-bg2); 
+}
+
+.wordBank .braille-cell {
+  width: 40px;
+  height: 40px;
+  background-color: var(--cell-bg); 
+  border: 1px solid var(--border-color); 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wordBank .braille-cell.active {
+  background-color: var(--active-cell-bg); 
+  border: none;
+  border-radius: 50%;
+}
+
+.wordBank .active-block .braille-block {
+  border: 8px solid var(--correct-color); 
+}
+
+.wordBank .word-to-write {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: var(--text-color); 
+}
+
+.wordBank .message {
+  font-size: 20px;
+  color: var(--message-color);
+  margin-top: 20px;
+}
+
+.wordBank .score,
+.wordBank .errors {
+  font-size: 18px;
+  margin-top: 10px;
+  color: var(--text-color); 
+}
+
+.wordBank button {
+  margin-top: 20px;
+  margin-right: 20px; 
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: var(--button-bg);
+  color: white;
+  border-radius: 5px;
+}
+
+.wordBank button:last-child {
+  margin-right: 0; 
+}
+
+.wordBank button:hover:not(:disabled) {
+  background-color: var(--button-hover); 
+}
+
+.wordBank button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.incorrect-block .braille-block {
+  border: 10px solid var(--error-color); 
+}
+
+.countdown {
+  font-size: 20px;
+  color: var(--error-color); 
+  margin-top: 20px;
+}
+
+.wordBank .correct-word {
+  border: 10px solid var(--correct-color); 
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.braille-letter {
+  text-align: center;
+  font-size: 1.5em;
+  margin-top: 10px;
+  color: var(--text-color); 
+}
+
+.image-container {
+  position: fixed;
+  top: 600px;
+  left: 40px;
+  z-index: 1000;
+}
+
+.corner-image {
+  width: 100px;
+  height: auto;
+  border: 2px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.braille-blocks-container::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.braille-blocks-container::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-bg);
+  border-radius: 10px;
+}
+
+.braille-blocks-container::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-bg);
+  border-radius: 10px;
+  border: 3px solid var(--scrollbar-track-bg);
+}
+
+.braille-blocks-container::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-bg);
+}
+.catarina-container {
+  position: fixed;
+  bottom: 5px;
+  right: 650px;
+  z-index: 1000;
+}
+
+.catarina-gif {
+  width: 150px;
+  height: auto;
+}
+.felicidades-container {
+  position: fixed;
+  bottom: -220px;
+  right: 550px;
+  z-index: 1000;
+}
+
+.felicidades-gif {
+  width: 350px;
+  height: auto;
+}
