@@ -11,7 +11,7 @@ const BrailleConverter = () => {
     const converted = inputText
       .toLowerCase()
       .split("")
-      .map(char => brailleDict[char] || "?") // Si no está en el diccionario, mostrar "?"
+      .map(char => brailleDict[char] || "?") 
       .join("");
     setBrailleText(converted);
   };

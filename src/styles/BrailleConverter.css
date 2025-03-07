@@ -1,38 +1,38 @@
-/* Estilos generales */
+
 .braille-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #d4e0ec; /* Fondo más claro y suave */
+  background-color: var(--background-color); 
   padding: 20px;
   width: 100vw;
   height: 100vh;
   border-radius: 12px;
 }
 
-/* Contenedor de la tarjeta */
+
 .braille-card {
-  background: rgb(222, 231, 248); /* Fondo blanco para la tarjeta */
+  background: var(--card-bg); 
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
-  max-width: 500px; /* Limitar el ancho para mejor legibilidad */
+  max-width: 500px;
   width: 100%;
 }
 
 .braille-title {
-  font-size: 48px; /* Tamaño de fuente más moderado */
+  font-size: 48px;
   font-weight: bold;
   margin-bottom: 20px;
-  color: #2c3e50; /* Color oscuro para el título */
+  color: var(--text-color); 
 }
 
 .braille-input {
   width: 80%;
   font-size: 16px;
-  border: 2px solid #ddd;
+  border: 2px solid var(--input-border); 
   border-radius: 6px;
   padding: 10px;
   text-align: center;
@@ -42,11 +42,11 @@
 }
 
 .braille-input:focus {
-  border-color: #3498db; /* Color azul más vibrante al enfocar */
+  border-color: var(--input-focus);
 }
 
 .braille-button {
-  background-color: #3498db; /* Color azul más vibrante */
+  background-color: var(--button-bg);
   color: white;
   font-size: 16px;
   padding: 12px 20px;
@@ -59,26 +59,26 @@
 }
 
 .braille-button:hover {
-  background-color: #2980b9; /* Color azul más oscuro al pasar el mouse */
+  background-color: var(--button-hover); 
 }
 
-/* Resultado */
+
 .braille-output {
-  font-size: 48px; /* Tamaño de fuente más moderado */
+  font-size: 48px;
   font-weight: bold;
   margin-top: 20px;
-  color: #078b3e; /* Color verde más suave */
+  color: var(--output-color); 
 }
 
-/* Estilos adicionales para mejorar la experiencia */
+
 .braille-card p {
-  font-size: 60px;
-  color: #10af15; /* Color gris para texto secundario */
+  font-size: 80px;
+  color: green;
   margin-bottom: 20px;
 }
 
 .braille-card a {
-  color: #3498db;
+  color: var(--button-bg); 
   text-decoration: none;
   font-weight: bold;
 }

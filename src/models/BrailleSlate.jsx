@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/BrailleSlate.css";
+import imagenEsquina from "../assets/MaquinaPerkins.png";
 
 const braillePatternToLetter = {
   "100000": "a", "101000": "b", "110000": "c", "110100": "d", "100100": "e",
@@ -51,7 +52,7 @@ const BrailleSlate = () => {
       newBlocks[blockIndex][cellIndex] = !newBlocks[blockIndex][cellIndex];
       return newBlocks;
     });
-    setCurrentBlock(blockIndex); // Resalta el bloque al hacer clic
+    setCurrentBlock(blockIndex);
   };
 
   useEffect(() => {
@@ -79,29 +80,37 @@ const BrailleSlate = () => {
     if (blocks.every(block => block.some(cell => cell))) {
       setBlocks(prevBlocks => [...prevBlocks, [...initialBlock]]);
     }
+    
   }, [blocks]);
 
   return (
-    <div className="braille-slate">
-      {blocks.map((block, blockIndex) => {
-        const character = getCharacterFromBlock(block, blockIndex);
-        return (
-          <div key={blockIndex} className={`braille-block-container ${blockIndex === currentBlock ? "active-block" : ""}`}>
-            <div className="braille-block">
-              {block.map((cell, cellIndex) => (
-                <div
-                  key={cellIndex}
-                  className={`braille-cell ${cell ? "active" : ""}`}
-                  onClick={() => handleCellClick(blockIndex, cellIndex)}
-                />
-              ))}
-            </div>
-            {character && <div className="recognized-character">{character}</div>}
-          </div>
-        );
-      })}
+    <div className="main-container">
+      <div className="braille-slate-container">
+        <div className="braille-slate">
+          {blocks.map((block, blockIndex) => {
+            const character = getCharacterFromBlock(block, blockIndex);
+            return (
+              <div key={blockIndex} className={`braille-block-container ${blockIndex === currentBlock ? "active-block" : ""}`}>
+                <div className="braille-block">
+                  {block.map((cell, cellIndex) => (
+                    <div
+                      key={cellIndex}
+                      className={`braille-cell ${cell ? "active" : ""}`}
+                      onClick={() => handleCellClick(blockIndex, cellIndex)}
+                    />
+                  ))}
+                </div>
+                {character && <div className="recognized-character">{character}</div>}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="image-container">
+        <img src={imagenEsquina} alt="Imagen en esquina" className="corner-image" />
+      </div>
     </div>
   );
 };
 
-export default BrailleSlate;  
+export default BrailleSlate;

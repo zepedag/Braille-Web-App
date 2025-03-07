@@ -1,59 +1,57 @@
-/* Estilos para la barra de navegación */
+
 .navbar {
-  background-color: #2c3e50; /* Color de fondo más moderno */
+  background-color: #2c3e50; 
   color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 15px 30px; /* Más espaciado interno */
+  padding: 15px 30px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
-/* Estilo para el título de la navbar */
 .navbar-title {
-  font-size: 28px; /* Tamaño de fuente más grande */
+  font-size: 28px; 
   font-weight: bold;
-  color: #ecf0f1; /* Color más claro para el título */
-  font-family: 'Arial', sans-serif; /* Tipografía moderna */
+  color: #ecf0f1; 
+  font-family: 'Arial', sans-serif; 
 }
 
-/* Contenedor para los botones */
+
 .navbar-buttons {
   display: flex;
-  gap: 15px; /* Más espacio entre botones */
+  gap: 15px; 
   padding-right: 50px;
 }
 
 .navbar-button {
   text-decoration: none;
-  background-color: #3498db; /* Color azul más vibrante */
+  background-color: #3498db; 
   color: white;
   border: none;
-  padding: 10px 20px; /* Botones más grandes */
-  border-radius: 6px; /* Bordes más redondeados */
+  padding: 10px 20px;
+  border-radius: 6px; 
   cursor: pointer;
   transition: background-color 0.3s, transform 0.2s;
-  font-size: 16px; /* Tamaño de fuente más grande */
-  font-weight: 500; /* Peso de la fuente */
+  font-size: 16px; 
+  font-weight: 500;
   display: inline-block;
 }
 
 .navbar-button:hover {
-  background-color: #2980b9; /* Color más oscuro al pasar el mouse */
-  transform: scale(1.05); /* Efecto de escala al pasar el mouse */
+  background-color: #2980b9; 
+  transform: scale(1.05); 
 }
 
-/* Estilos adicionales para mejorar la experiencia */
 .navbar-button:active {
-  transform: scale(0.95); /* Efecto de clic */
+  transform: scale(0.95); 
 }
 
 .navbar-button:focus {
-  outline: none; /* Quita el borde de enfoque predeterminado */
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5); /* Borde de enfoque personalizado */
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.5); 
 }

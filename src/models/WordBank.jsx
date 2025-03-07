@@ -1,5 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/WordBank.css";
+import imagenEsquina from "../assets/MaquinaPerkins.png";
+import imagenEsquina2 from "../assets/MaquinaPerkinsNegro.png";
+import catarina from "../assets/Catarina.gif";
+import felicidades from "../assets/Felicidades.gif";
 
 const braillePatternToLetter = {
   "100000": "a", "101000": "b", "110000": "c", "110100": "d", "100100": "e",
@@ -24,8 +28,13 @@ const basicWords = [
   "fuego", "tierra", "viento", "mar", "río", "montaña", "bosque", "campo", "ciudad", "pueblo",
   "calle", "escuela", "libro", "lápiz", "papel", "mesa", "silla", "puerta", "ventana", "pared",
   "techo", "suelo", "cama", "almohada", "manta", "ropa", "zapato", "sombrero", "reloj", "espejo",
-  "plato", "vaso", "cuchara", "tenedor", "cuchillo", "comida", "bebida", "fruta", "verdura", "pan"
+  "plato", "vaso", "cuchara", "tenedor", "cuchillo", "comida", "bebida", "fruta", "verdura", "pan",
+  
+  "canción", "corazón", "acción", "nación", "teléfono", "rápido", "público", "eléctrico", "sofá", "café",
+  "mamá", "papá", "avión", "camión", "reunión", "inspiración", "prisión", "opinión", "educación", "tradición",
+  "fácil", "difícil", "débil", "útil", "crédito", "médico", "pánico", "técnico", "música", "histórico"
 ];
+
 
 const WordBank = () => {
   const initialBlock = [false, false, false, false, false, false];
@@ -38,7 +47,11 @@ const WordBank = () => {
   const [errors, setErrors] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [incorrectBlocks, setIncorrectBlocks] = useState([]);
-  const [countdown, setCountdown] = useState(0); // Contador de 10 segundos
+  const [countdown, setCountdown] = useState(0);
+  const [showLetters, setShowLetters] = useState(false);
+  const blocksContainerRef = useRef(null);
+  const [showCatarina, setShowCatarina] = useState(false);
+  const [showFelicidades, setShowFelicidades] = useState(false);
 
   useEffect(() => {
     if (!gameOver) {
@@ -61,11 +74,10 @@ const WordBank = () => {
         setCurrentBlock(prev => (prev > 0 ? prev - 1 : prev));
       }
     };
-    
+
     window.addEventListener("keydown", handleKeyPress);
     return () => window.removeEventListener("keydown", handleKeyPress);
   }, [currentBlock, blocks.length]);
-
 
   const handleCellClick = (blockIndex, cellIndex) => {
     setBlocks(prevBlocks => {
@@ -73,7 +85,7 @@ const WordBank = () => {
       newBlocks[blockIndex][cellIndex] = !newBlocks[blockIndex][cellIndex];
       return newBlocks;
     });
-    setCurrentBlock(blockIndex); // Resalta el bloque al hacer clic
+    setCurrentBlock(blockIndex);
   };
 
   useEffect(() => {
@@ -89,12 +101,14 @@ const WordBank = () => {
 
   const getCharacterFromBlock = (block, index) => {
     const pattern = block.map(cell => (cell ? "1" : "0")).join("");
-    
-    if (numberModeBlocks.includes(index - 1)) {
-      return braillePatternToNumber[pattern] || "";
+  
+    if (index < currentWord.length) {
+      if (numberModeBlocks.includes(index - 1)) {
+        return braillePatternToNumber[pattern] || "?";
+      }
+      return braillePatternToLetter[pattern] || "?";
     }
-    
-    return braillePatternToLetter[pattern] || "";
+    return "";
   };
 
   useEffect(() => {
@@ -103,31 +117,49 @@ const WordBank = () => {
     }
   }, [blocks]);
 
+  useEffect(() => {
+    if (blocksContainerRef.current) {
+      blocksContainerRef.current.scrollTo({
+        left: blocksContainerRef.current.scrollWidth,
+        behavior: 'smooth'
+      });
+    }
+  }, [blocks.length]);
+
   const checkWord = () => {
+    setShowLetters(true);
+  
     const writtenWord = blocks.map((block, index) => getCharacterFromBlock(block, index)).join("");
   
-    // Verifica si la palabra está completamente correcta
-    if (writtenWord === currentWord) {
-      setScore(prevScore => prevScore + 10); // Suma 5 puntos si la palabra está correcta
-      setMessage("¡Correcto! ¡Buen trabajo!");
+    let correctLetters = 0;
+    for (let i = 0; i < writtenWord.length; i++) {
+      if (writtenWord[i] === currentWord[i]) {
+        correctLetters++;
+      }
+    }
   
-      // Verifica si se completaron todas las palabras
-      if (score + 10 >= basicWords.length * 10) { // Ahora se compara con basicWords.length * 5
+    if (writtenWord === currentWord) {
+      setScore(prevScore => prevScore + 10);
+      setMessage("¡Correcto! ¡Buen trabajo!");
+      setShowCatarina(true); 
+      setShowFelicidades(true); 
+  
+      if (score + 10 >= basicWords.length * 10) {
         setMessage("¡Felicidades! Has completado todas las palabras.");
         setGameOver(true);
       }
     } else {
+      setScore(prevScore => prevScore + correctLetters);
       setErrors(prevErrors => prevErrors + 1);
       if (errors + 1 >= 3) {
         setMessage("¡Has cometido 3 errores! Juego terminado.");
         setGameOver(true);
-        startCountdown(); // Inicia el contador de 10 segundos
+        startCountdown();
       } else {
-        setMessage("Inténtalo de nuevo.");
+        setMessage(`Tienes ${correctLetters} letras correctas. Inténtalo de nuevo.`);
       }
     }
   
-    // Marca los bloques incorrectos
     const incorrectIndices = [];
     for (let i = 0; i < writtenWord.length; i++) {
       if (writtenWord[i] !== currentWord[i]) {
@@ -136,21 +168,20 @@ const WordBank = () => {
     }
     setIncorrectBlocks(incorrectIndices);
   
-    // Desactiva el recuadro verde
     setCurrentBlock(null);
   };
 
   const startCountdown = () => {
-    setCountdown(10); // Inicia el contador en 10 segundos
+    setCountdown(10);
     const interval = setInterval(() => {
       setCountdown(prev => {
         if (prev === 1) {
           clearInterval(interval);
-          restartGame(); // Reinicia el juego cuando el contador llega a 0
+          restartGame();
         }
         return prev - 1;
       });
-    }, 1000); // Actualiza el contador cada segundo
+    }, 1000);
   };
 
   const restartGame = () => {
@@ -158,65 +189,102 @@ const WordBank = () => {
     setErrors(0);
     setGameOver(false);
     setMessage("");
-    setIncorrectBlocks([]); // Limpia los bloques incorrectos
+    setIncorrectBlocks([]);
     setCurrentWord(basicWords[Math.floor(Math.random() * basicWords.length)]);
     setBlocks(Array.from({ length: 8 }, () => [...initialBlock]));
-    setCountdown(0); // Reinicia el contador
+    setCountdown(0);
+    setShowLetters(false);
+    setShowCatarina(false);
+    setShowFelicidades(false);
   };
 
   const newAttempt = () => {
     setCurrentWord(basicWords[Math.floor(Math.random() * basicWords.length)]);
     setBlocks(Array.from({ length: 8 }, () => [...initialBlock]));
-    setIncorrectBlocks([]); // Limpia los bloques incorrectos
-    setCurrentBlock(0); // Reinicia al primer bloque
-    setMessage(""); // Limpia el mensaje
+    setIncorrectBlocks([]);
+    setCurrentBlock(0);
+    setMessage("");
+    setShowLetters(false);
+    setShowCatarina(false);
+    setShowFelicidades(false);
   };
 
   const sameWordAttempt = () => {
     setBlocks(Array.from({ length: 8 }, () => [...initialBlock]));
-    setIncorrectBlocks([]); // Limpia los bloques incorrectos
-    setCurrentBlock(0); // Reinicia al primer bloque
-    setMessage(""); // Limpia el mensaje
+    setIncorrectBlocks([]);
+    setCurrentBlock(0);
+    setMessage("");
+    setShowLetters(false);
+    setShowCatarina(false);
+    setShowFelicidades(false);
   };
 
   return (
     <div className="wordBank">
       <div className="word-to-write">Palabra a escribir: {currentWord}</div>
-      {blocks.map((block, blockIndex) => {
-        const character = getCharacterFromBlock(block, blockIndex);
-        return (
-          <div
-            key={blockIndex}
-            className={`braille-block-container ${
-              currentBlock !== null && blockIndex === currentBlock ? "active-block" : ""
-            } ${
-              incorrectBlocks.includes(blockIndex) ? "incorrect-block" : ""
-            }`}
-          >
-            <div className="braille-block">
-              {block.map((cell, cellIndex) => (
-                <div
-                  key={cellIndex}
-                  className={`braille-cell ${cell ? "active" : ""}`}
-                  onClick={() => handleCellClick(blockIndex, cellIndex)}
-                />
-              ))}
-            </div>
-            {character && <div className="recognized-character">{character}</div>}
+  
+      <div className="braille-blocks-container" ref={blocksContainerRef}>
+        <div className="braille-slate">
+          {blocks.map((block, blockIndex) => {
+            const character = getCharacterFromBlock(block, blockIndex);
+            return (
+              <div
+                key={blockIndex}
+                className={`braille-block-container ${
+                  currentBlock !== null && blockIndex === currentBlock ? "active-block" : ""
+                } ${
+                  incorrectBlocks.includes(blockIndex) ? "incorrect-block" : ""
+                }`}
+              >
+                <div className="braille-block">
+                  {block.map((cell, cellIndex) => (
+                    <div
+                      key={cellIndex}
+                      className={`braille-cell ${cell ? "active" : ""}`}
+                      onClick={() => handleCellClick(blockIndex, cellIndex)}
+                    />
+                  ))}
+                </div>
+                {showLetters && (
+                  <div className="braille-letter">
+                    {character}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+  
+      <div className="controls-container">
+        <button onClick={checkWord} disabled={gameOver || countdown > 0}>Verificar</button>
+        <button onClick={newAttempt} disabled={gameOver || countdown > 0}>Nueva Palabra</button>
+        <button onClick={sameWordAttempt} disabled={gameOver || countdown > 0}>Misma Palabra</button>
+        {message && <div className="message">{message}</div>}
+        {countdown > 0 && (
+          <div className="countdown">
+            Reiniciando en {countdown} segundos...
           </div>
-        );
-      })}
-      <button onClick={checkWord} disabled={gameOver || countdown > 0}>Verificar</button>
-      <button onClick={newAttempt} disabled={gameOver || countdown > 0}>Nueva Palabra</button>
-      <button onClick={sameWordAttempt} disabled={gameOver || countdown > 0}>Misma Palabra</button>
-      {message && <div className="message">{message}</div>}
-      {countdown > 0 && (
-        <div className="countdown">
-          Reiniciando en {countdown} segundos...
+        )}
+        <div className="score">Puntuación: {score}</div>
+        <div className="errors">Errores: {errors}</div>
+      </div>
+  
+      <div className="image-container">
+        <img src={imagenEsquina} alt="Imagen en esquina" className="corner-image" />
+      </div>
+  
+  
+      {showCatarina && (
+        <div className="catarina-container">
+          <img src={catarina} alt="Catarina" className="catarina-gif" />
         </div>
       )}
-      <div className="score">Puntuación: {score}</div>
-      <div className="errors">Errores: {errors}</div>
+      {showFelicidades && (
+        <div className="felicidades-container">
+          <img src={felicidades} alt="Felicidades" className="felicidades-gif" />
+        </div>
+      )}
     </div>
   );
 };
