@@ -101,14 +101,12 @@ const WordBank = () => {
 
   const getCharacterFromBlock = (block, index) => {
     const pattern = block.map(cell => (cell ? "1" : "0")).join("");
-  
-    if (index < currentWord.length) {
-      if (numberModeBlocks.includes(index - 1)) {
-        return braillePatternToNumber[pattern] || "?";
-      }
-      return braillePatternToLetter[pattern] || "?";
+
+    if (numberModeBlocks.includes(index - 1)) {
+      return braillePatternToNumber[pattern] || "";
     }
-    return "";
+
+    return braillePatternToLetter[pattern] || "";
   };
 
   useEffect(() => {
@@ -116,21 +114,12 @@ const WordBank = () => {
       setBlocks(prevBlocks => [...prevBlocks, [...initialBlock]]);
     }
   }, [blocks]);
-
-  useEffect(() => {
-    if (blocksContainerRef.current) {
-      blocksContainerRef.current.scrollTo({
-        left: blocksContainerRef.current.scrollWidth,
-        behavior: 'smooth'
-      });
-    }
-  }, [blocks.length]);
-
   const checkWord = () => {
-    setShowLetters(true);
+    setShowLetters(true); // Mostrar las letras al verificar
   
     const writtenWord = blocks.map((block, index) => getCharacterFromBlock(block, index)).join("");
   
+    // Contar cuántas letras coinciden
     let correctLetters = 0;
     for (let i = 0; i < writtenWord.length; i++) {
       if (writtenWord[i] === currentWord[i]) {
@@ -138,18 +127,18 @@ const WordBank = () => {
       }
     }
   
+    // Verifica si la palabra está completamente correcta
     if (writtenWord === currentWord) {
-      setScore(prevScore => prevScore + 10);
+      setScore(prevScore => prevScore + 10); // Suma 10 puntos si la palabra está correcta
       setMessage("¡Correcto! ¡Buen trabajo!");
-      setShowCatarina(true); 
-      setShowFelicidades(true); 
   
+      // Verifica si se completaron todas las palabras
       if (score + 10 >= basicWords.length * 10) {
         setMessage("¡Felicidades! Has completado todas las palabras.");
         setGameOver(true);
       }
     } else {
-      setScore(prevScore => prevScore + correctLetters);
+      setScore(prevScore => prevScore + correctLetters); // Suma 1 punto por cada letra correcta
       setErrors(prevErrors => prevErrors + 1);
       if (errors + 1 >= 3) {
         setMessage("¡Has cometido 3 errores! Juego terminado.");
@@ -170,7 +159,6 @@ const WordBank = () => {
   
     setCurrentBlock(null);
   };
-
   const startCountdown = () => {
     setCountdown(10);
     const interval = setInterval(() => {
@@ -221,6 +209,7 @@ const WordBank = () => {
 
   return (
     <div className="wordBank">
+      {/* Palabra a escribir */}
       <div className="word-to-write">Palabra a escribir: {currentWord}</div>
   
       <div className="braille-blocks-container" ref={blocksContainerRef}>

@@ -12,18 +12,15 @@
   background-color: var(--background-color);
   overflow-x: auto; 
   max-width: 90vw; 
-  border: 2px solid var(--border-color2); 
+  border: 2px solid var(--border-color); 
 }
 
 .braille-slate {
   display: flex;
   flex-wrap: nowrap; 
-  overflow-x: auto; 
-  white-space: nowrap; 
-  gap: 5px;
-  padding: 10px;
+  gap: 20px;
+  padding: 20px;
   background-color: var(--background-color);
-  scroll-behavior: smooth; 
 }
 
 
