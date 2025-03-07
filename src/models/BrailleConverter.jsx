@@ -27,18 +27,23 @@ const BrailleConverter = ({ theme }) => {
           onChange={(e) => setInputText(e.target.value)}
           placeholder="Escribe aquí..."
           className="braille-input"
+          aria-label="Campo de texto para ingresar el texto a convertir en Braille"
         />
-        <button onClick={convertToBraille} className="braille-button">
+        <button 
+          onClick={convertToBraille} 
+          className="braille-button"
+          aria-label="Botón para convertir el texto ingresado en Braille"
+        >
           Convertir
         </button>
-        <p className="braille-output">{brailleText}</p>
+        <p className="braille-output" aria-live="polite">{brailleText}</p>
       </div>
       <div className="logo-container">
-            {theme === 'dark' ? (
-              <img src={logoOscuro} alt="Logo Oscuro" className="logo-design" />
-            ) : (
-              <img src={logoClaro} alt="Logo Claro" className="logo-design" />
-            )}
+        {theme === 'dark' ? (
+          <img src={logoOscuro} alt="Logo de la aplicación en modo oscuro" className="logo-design" />
+        ) : (
+          <img src={logoClaro} alt="Logo de la aplicación en modo claro" className="logo-design" />
+        )}
       </div>
     </div>
   );

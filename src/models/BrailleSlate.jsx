@@ -79,6 +79,13 @@ const BrailleSlate = ({ theme }) => {
     return braillePatternToLetter[pattern] || "";
   };
 
+  const playAudio = (character) => {
+    if (character) {
+      const audio = new Audio(`src/assets/Audio/${character}.mp3`);
+      audio.play().catch(error => console.error("Error al reproducir el audio:", error));
+    }
+  };
+
   useEffect(() => {
     if (blocks.every(block => block.some(cell => cell))) {
       setBlocks(prevBlocks => [...prevBlocks, [...initialBlock]]);
@@ -91,12 +98,16 @@ const BrailleSlate = ({ theme }) => {
         <div className="braille-slate">
           {blocks.map((block, blockIndex) => {
             const character = getCharacterFromBlock(block, blockIndex);
+            useEffect(() => {
+              if (character) {
+                playAudio(character);
+              }
+            }, [character]);
+
             return (
               <div
                 key={blockIndex}
-                className={`braille-block-container ${
-                  blockIndex === currentBlock ? "active-block" : ""
-                }`}
+                className={`braille-block-container ${blockIndex === currentBlock ? "active-block" : ""}`}
               >
                 <div className="braille-block">
                   {block.map((cell, cellIndex) => (
