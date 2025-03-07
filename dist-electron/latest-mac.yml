@@ -1,8 +1,8 @@
 version: 0.0.0
 files:
   - url: BrailleApp-0.0.0-arm64.dmg
-    sha512: Q3ErLjp2IIdxG8INelINKz04YhCOWe8fuD1PndFeyYuNY6BJxSRbzzN43BVo4+/9aKYkIqWTFxazVPNar/jliw==
-    size: 105696463
+    sha512: 6qkvcyVm/saXJD2AiIOKrKwSuOdYzGIOTbwoMBrrIQui26dlMiPBdVucTgVu9N0E4SUt9vj1rZoGc9ciYKjOsA==
+    size: 105696520
 path: BrailleApp-0.0.0-arm64.dmg
-sha512: Q3ErLjp2IIdxG8INelINKz04YhCOWe8fuD1PndFeyYuNY6BJxSRbzzN43BVo4+/9aKYkIqWTFxazVPNar/jliw==
-releaseDate: '2025-03-07T07:07:26.464Z'
+sha512: 6qkvcyVm/saXJD2AiIOKrKwSuOdYzGIOTbwoMBrrIQui26dlMiPBdVucTgVu9N0E4SUt9vj1rZoGc9ciYKjOsA==
+releaseDate: '2025-03-07T15:11:28.480Z'
