@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = ({ theme, setTheme }) => {
   return (
-    <nav className="navbar">
+    <nav className="navbar" role="navigation">
       <div className="navbar-title">Braille UDLAP</div>
       <div className="navbar-buttons">
         <Link to="/" className="navbar-button">
