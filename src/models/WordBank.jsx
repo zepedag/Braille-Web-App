@@ -103,11 +103,13 @@ const WordBank = ({ theme }) => {
   const getCharacterFromBlock = (block, index) => {
     const pattern = block.map(cell => (cell ? "1" : "0")).join("");
 
-    if (numberModeBlocks.includes(index - 1)) {
-      return braillePatternToNumber[pattern] || "";
+    if (index < currentWord.length) {
+      if (numberModeBlocks.includes(index - 1)) {
+        return braillePatternToNumber[pattern] || "?";
+      }
+      return braillePatternToLetter[pattern] || "?";
     }
-
-    return braillePatternToLetter[pattern] || "";
+    return "";
   };
 
   useEffect(() => {

@@ -40,7 +40,6 @@
     "productName": "BrailleApp",
     "directories": {
       "output": "dist-electron"
-    
     },
     "files": [
       "dist/**/*",
@@ -53,6 +52,10 @@
     },
     "mac": {
       "target": "dmg",
+      "category": "public.app-category.utilities",
+      "hardenedRuntime": true,
+      "entitlementsInherit": "build/entitlements.mac.plist",
+      "gatekeeperAssess": false,
       "icon": "icon.icns"
     }
   }
