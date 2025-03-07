@@ -174,6 +174,7 @@
   bottom: 5px;
   right: 650px;
   z-index: 1000;
+  pointer-events: none;
 }
 
 .catarina-gif {
@@ -182,9 +183,10 @@
 }
 .felicidades-container {
   position: fixed;
-  bottom: -220px;
+  bottom: -100px;
   right: 550px;
   z-index: 1000;
+  pointer-events: none;
 }
 
 .felicidades-gif {
