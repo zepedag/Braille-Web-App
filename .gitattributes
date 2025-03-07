@@ -1,0 +1,2 @@
+dist-electron/*.dmg filter=lfs diff=lfs merge=lfs -text
+dist-electron/mac-arm64/BrailleApp.app/Contents/Frameworks/Electron[[:space:]]Framework.framework/Versions/A/Electron[[:space:]]Framework filter=lfs diff=lfs merge=lfs -text

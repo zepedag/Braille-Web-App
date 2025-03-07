@@ -1,0 +1,21 @@
+directories:
+  output: dist-electron
+  buildResources: build
+appId: com.tuapp.braille
+productName: BrailleApp
+files:
+  - filter:
+      - dist/**/*
+      - main.js
+      - package.json
+win:
+  target: portable
+  icon: icon.ico
+mac:
+  target: dmg
+  category: public.app-category.utilities
+  hardenedRuntime: true
+  entitlementsInherit: build/entitlements.mac.plist
+  gatekeeperAssess: false
+  icon: icon.icns
+electronVersion: 34.3.0
