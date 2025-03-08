@@ -5,20 +5,39 @@ import { Link } from "react-router-dom";
 const Navbar = ({ theme, setTheme }) => {
   return (
     <nav className="navbar" role="navigation">
-      <div className="navbar-title">Braille UDLAP</div>
-      <div className="navbar-buttons">
-        <Link to="/" className="navbar-button" aria-label="Ir a la página de inicio">
-          Inicio
+      <div className="navbar-left">
+        <Link to="/" className={`navbar-button ${theme === "dark" ? "dark-mode" : ""}`} aria-label="Ir al inicio">
+          <div className="icon-text-container">
+            <i className="fas fa-home"></i>
+            <span>Inicio</span>
+          </div>
         </Link>
-        <Link to="/convert" className="navbar-button" aria-label="Convertir texto a Braille">
-          Convertir a Braille
+      </div>
+      <div className="navbar-center">
+        <Link to="/convert" className={`navbar-button ${theme === "dark" ? "dark-mode" : ""}`} aria-label="Convertir texto a Braille">
+          <div className="icon-text-container">
+            <div className="convert-icons">
+              <i className="fas fa-font"></i>
+              <i className="fas fa-exchange-alt"></i>
+              <i className="fas fa-braille"></i>
+            </div>
+            <span>Convertir a Braille</span>
+          </div>
         </Link>
-        <Link to="/slate" className="navbar-button" aria-label="Acceder a la regleta Braille">
-          Regleta Braille
+        <Link to="/slate" className={`navbar-button ${theme === "dark" ? "dark-mode" : ""}`} aria-label="Acceder a la regleta Braille">
+          <div className="icon-text-container">
+            <i className="fas fa-keyboard"></i>
+            <span>Regleta Braille</span>
+          </div>
         </Link>
-        <Link to="/wordbank" className="navbar-button" aria-label="Consultar el banco de palabras">
-          WordBank
+        <Link to="/wordbank" className={`navbar-button ${theme === "dark" ? "dark-mode" : ""}`} aria-label="Consultar el banco de palabras">
+          <div className="icon-text-container">
+            <i className="fas fa-gamepad"></i>
+            <span>Juego</span>
+          </div>
         </Link>
+      </div>
+      <div className="navbar-right">
         <div className="theme-switch">
           <input
             type="checkbox"

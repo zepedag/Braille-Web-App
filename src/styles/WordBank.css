@@ -193,3 +193,9 @@
   width: 350px;
   height: auto;
 }
+.logo-container2 {
+  position: fixed;
+  top: 600px; 
+  right: 30px;
+  z-index: 1000;
+}

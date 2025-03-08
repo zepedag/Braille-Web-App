@@ -28,6 +28,7 @@ const BrailleSlate = ({ theme }) => {
   const [blocks, setBlocks] = useState(() => Array.from({ length: 8 }, () => [...initialBlock]));
   const [currentBlock, setCurrentBlock] = useState(0);
   const [numberModeBlocks, setNumberModeBlocks] = useState([]);
+  const [lastRecognizedCharacters, setLastRecognizedCharacters] = useState({}); 
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -71,12 +72,10 @@ const BrailleSlate = ({ theme }) => {
 
   const getCharacterFromBlock = (block, index) => {
     const pattern = block.map(cell => (cell ? "1" : "0")).join("");
-
     if (numberModeBlocks.includes(index - 1)) {
-      return braillePatternToNumber[pattern] || "";
+      return braillePatternToNumber[pattern] || null; 
     }
-
-    return braillePatternToLetter[pattern] || "";
+    return braillePatternToLetter[pattern] || null; 
   };
 
   const playAudio = (character) => {
@@ -85,6 +84,22 @@ const BrailleSlate = ({ theme }) => {
       audio.play().catch(error => console.error("Error al reproducir el audio:", error));
     }
   };
+
+  useEffect(() => {
+    blocks.forEach((block, blockIndex) => {
+      const currentCharacter = getCharacterFromBlock(block, blockIndex);
+      const lastCharacter = lastRecognizedCharacters[blockIndex];
+
+      
+      if (currentCharacter !== null && currentCharacter !== lastCharacter) {
+        playAudio(currentCharacter);
+        setLastRecognizedCharacters(prev => ({
+          ...prev,
+          [blockIndex]: currentCharacter, 
+        }));
+      }
+    });
+  }, [blocks]); 
 
   useEffect(() => {
     if (blocks.every(block => block.some(cell => cell))) {
@@ -96,40 +111,22 @@ const BrailleSlate = ({ theme }) => {
     <div className="main-container">
       <div className="braille-slate-container">
         <div className="braille-slate">
-          {blocks.map((block, blockIndex) => {
-            const character = getCharacterFromBlock(block, blockIndex);
-            useEffect(() => {
-              if (character) {
-                playAudio(character);
-              }
-            }, [character]);
-
-            return (
-              <div
-                key={blockIndex}
-                className={`braille-block-container ${blockIndex === currentBlock ? "active-block" : ""}`}
-              >
-                <div className="braille-block">
-                  {block.map((cell, cellIndex) => (
-                    <div
-                      key={cellIndex}
-                      className={`braille-cell ${cell ? "active" : ""}`}
-                      onClick={() => handleCellClick(blockIndex, cellIndex)}
-                    />
-                  ))}
-                </div>
-                {character && (
-                  <div className="recognized-character">{character}</div>
-                )}
+          {blocks.map((block, blockIndex) => (
+            <div key={blockIndex} className={`braille-block-container ${blockIndex === currentBlock ? "active-block" : ""}`}>
+              <div className="braille-block">
+                {block.map((cell, cellIndex) => (
+                  <div key={cellIndex} className={`braille-cell ${cell ? "active" : ""}`} onClick={() => handleCellClick(blockIndex, cellIndex)} />
+                ))}
               </div>
-            );
-          })}
+              <div className="recognized-character">{getCharacterFromBlock(block, blockIndex)}</div>
+            </div>
+          ))}
         </div>
       </div>
       <div className="image-container">
         <img src={theme === 'dark' ? imagenEsquina2 : imagenEsquina} alt="Imagen en esquina" className="corner-image" />
       </div>  
-      <div className="logo-container">
+      <div className="logo-container2">
         {theme === 'dark' ? (
           <img src={logoOscuro} alt="Logo Oscuro" className="logo-design" />
         ) : (

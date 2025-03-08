@@ -36,7 +36,6 @@ const basicWords = [
   "fácil", "difícil", "débil", "útil", "crédito", "médico", "pánico", "técnico", "música", "histórico"
 ];
 
-
 const WordBank = ({ theme }) => {
   const initialBlock = [false, false, false, false, false, false];
   const [blocks, setBlocks] = useState(() => Array.from({ length: 8 }, () => [...initialBlock]));
@@ -53,6 +52,7 @@ const WordBank = ({ theme }) => {
   const blocksContainerRef = useRef(null);
   const [showCatarina, setShowCatarina] = useState(false);
   const [showFelicidades, setShowFelicidades] = useState(false);
+  const [lastRecognizedCharacters, setLastRecognizedCharacters] = useState({});
 
   useEffect(() => {
     if (!gameOver) {
@@ -112,14 +112,37 @@ const WordBank = ({ theme }) => {
     return "";
   };
 
+  const playAudio = (character) => {
+    if (character) {
+      const audio = new Audio(`src/assets/Audio/${character}.mp3`);
+      audio.play().catch(error => console.error("Error al reproducir el audio:", error));
+    }
+  };
+
+  useEffect(() => {
+    blocks.forEach((block, blockIndex) => {
+      const currentCharacter = getCharacterFromBlock(block, blockIndex);
+      const lastCharacter = lastRecognizedCharacters[blockIndex];
+
+      if (currentCharacter !== null && currentCharacter !== lastCharacter) {
+        playAudio(currentCharacter);
+        setLastRecognizedCharacters(prev => ({
+          ...prev,
+          [blockIndex]: currentCharacter,
+        }));
+      }
+    });
+  }, [blocks]);
+
   useEffect(() => {
     if (blocks.every(block => block.some(cell => cell))) {
       setBlocks(prevBlocks => [...prevBlocks, [...initialBlock]]);
     }
   }, [blocks]);
+
   const checkWord = () => {
-    setShowLetters(true); 
-  
+    setShowLetters(true);
+
     const writtenWord = blocks.map((block, index) => getCharacterFromBlock(block, index)).join("");
     let correctLetters = 0;
     for (let i = 0; i < writtenWord.length; i++) {
@@ -127,13 +150,13 @@ const WordBank = ({ theme }) => {
         correctLetters++;
       }
     }
-  
+
     if (writtenWord === currentWord) {
-      setScore(prevScore => prevScore + 10); 
+      setScore(prevScore => prevScore + 10);
       setMessage("¡Correcto! ¡Buen trabajo!");
       setShowCatarina(true);
       setShowFelicidades(true);
-    
+
       if (score + 10 >= basicWords.length * 10) {
         setMessage("¡Felicidades! Has completado todas las palabras.");
         setGameOver(true);
@@ -149,7 +172,7 @@ const WordBank = ({ theme }) => {
         setMessage(`Tienes ${correctLetters} letras correctas. Inténtalo de nuevo.`);
       }
     }
-  
+
     const incorrectIndices = [];
     for (let i = 0; i < writtenWord.length; i++) {
       if (writtenWord[i] !== currentWord[i]) {
@@ -157,9 +180,10 @@ const WordBank = ({ theme }) => {
       }
     }
     setIncorrectBlocks(incorrectIndices);
-  
+
     setCurrentBlock(null);
   };
+
   const startCountdown = () => {
     setCountdown(10);
     const interval = setInterval(() => {
@@ -211,7 +235,7 @@ const WordBank = ({ theme }) => {
   return (
     <div className="wordBank">
       <div className="word-to-write">Palabra a escribir: {currentWord}</div>
-  
+
       <div className="braille-blocks-container" ref={blocksContainerRef}>
         <div className="braille-slate">
           {blocks.map((block, blockIndex) => {
@@ -245,7 +269,7 @@ const WordBank = ({ theme }) => {
           })}
         </div>
       </div>
-  
+
       <div className="controls-container">
         <button 
           onClick={checkWord} 
@@ -294,7 +318,7 @@ const WordBank = ({ theme }) => {
           <img src={felicidades} alt="Animación de Felicidades" className="felicidades-gif" />
         </div>
       )}
-      <div className="logo-container">
+      <div className="logo-container2">
         {theme === 'dark' ? (
           <img src={logoOscuro} alt="Logo de la aplicación en modo oscuro" className="logo-design" />
         ) : (
