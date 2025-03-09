@@ -12,6 +12,9 @@
   --message-color: green;
   --error-color: red;
   --correct-color: green;
+  --sound-icon-color: #ffffffff; 
+  --sound-icon-bg: #3498db; 
+  --sound-icon-hover-bg: #2980b9;
 }
 
 .dark {
@@ -30,6 +33,9 @@
   --message-color: #1abc9c;
   --error-color: #e74c3c;
   --correct-color: #1abc9c;
+  --sound-icon-color: #fff; 
+  --sound-icon-bg: #16a085; 
+  --sound-icon-hover-bg: #1abc9c;
 }
 
 body {

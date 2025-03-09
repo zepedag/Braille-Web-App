@@ -23,7 +23,7 @@ const Home = ({ theme }) => (
         <p><strong>Proyecto de servicio social</strong></p>
         <p>iOS Development Lab UDLAP</p>
         <p>Digital Maker Space</p>
-        <p><strong>Directora:</strong></p>
+        <p><strong>Directora del proyecto:</strong></p>
         <p>Dra. Zobeida Jezabel Guzman Zavaleta</p>
       </div>
       <div className="developers-section">

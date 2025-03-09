@@ -4,6 +4,8 @@ import imagenEsquina from "../assets/MaquinaPerkins.png";
 import imagenEsquina2 from "../assets/MaquinaPerkinsNegro.png";
 import logoClaro from "../assets/LOGO_STEM-07.png";
 import logoOscuro from "../assets/LOGO_STEM-08.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Importar FontAwesome
+import { faVolumeUp, faVolumeMute } from "@fortawesome/free-solid-svg-icons"; // Importar íconos de sonido
 
 const braillePatternToLetter = {
   "100000": "a", "101000": "b", "110000": "c", "110100": "d", "100100": "e",
@@ -23,26 +25,27 @@ const braillePatternToNumber = {
 const NUMBER_INDICATOR = "010111";
 const keyMap = { "f": 0, "d": 1, "s": 2, "j": 3, "k": 4, "l": 5 };
 
-const BrailleSlate = ({ theme }) => { 
+const BrailleSlate = ({ theme }) => {
   const initialBlock = [false, false, false, false, false, false];
   const [blocks, setBlocks] = useState(() => Array.from({ length: 8 }, () => [...initialBlock]));
   const [currentBlock, setCurrentBlock] = useState(0);
   const [numberModeBlocks, setNumberModeBlocks] = useState([]);
-  const [lastRecognizedCharacters, setLastRecognizedCharacters] = useState({}); 
+  const [lastRecognizedCharacters, setLastRecognizedCharacters] = useState({});
+  const [soundEnabled, setSoundEnabled] = useState(true); // Estado para controlar el sonido
 
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (keyMap.hasOwnProperty(event.key)) {
         const cellIndex = keyMap[event.key];
-        setBlocks(prevBlocks => {
-          const newBlocks = prevBlocks.map(block => [...block]);
+        setBlocks((prevBlocks) => {
+          const newBlocks = prevBlocks.map((block) => [...block]);
           newBlocks[currentBlock][cellIndex] = !newBlocks[currentBlock][cellIndex];
           return newBlocks;
         });
       } else if (event.key === "ArrowRight" || event.key === " ") {
-        setCurrentBlock(prev => (prev < blocks.length - 1 ? prev + 1 : prev));
+        setCurrentBlock((prev) => (prev < blocks.length - 1 ? prev + 1 : prev));
       } else if (event.key === "ArrowLeft") {
-        setCurrentBlock(prev => (prev > 0 ? prev - 1 : prev));
+        setCurrentBlock((prev) => (prev > 0 ? prev - 1 : prev));
       }
     };
 
@@ -51,8 +54,8 @@ const BrailleSlate = ({ theme }) => {
   }, [currentBlock, blocks.length]);
 
   const handleCellClick = (blockIndex, cellIndex) => {
-    setBlocks(prevBlocks => {
-      const newBlocks = prevBlocks.map(block => [...block]);
+    setBlocks((prevBlocks) => {
+      const newBlocks = prevBlocks.map((block) => [...block]);
       newBlocks[blockIndex][cellIndex] = !newBlocks[blockIndex][cellIndex];
       return newBlocks;
     });
@@ -62,7 +65,7 @@ const BrailleSlate = ({ theme }) => {
   useEffect(() => {
     const newNumberModeBlocks = [];
     blocks.forEach((block, index) => {
-      const pattern = block.map(cell => (cell ? "1" : "0")).join("");
+      const pattern = block.map((cell) => (cell ? "1" : "0")).join("");
       if (pattern === NUMBER_INDICATOR) {
         newNumberModeBlocks.push(index);
       }
@@ -71,17 +74,17 @@ const BrailleSlate = ({ theme }) => {
   }, [blocks]);
 
   const getCharacterFromBlock = (block, index) => {
-    const pattern = block.map(cell => (cell ? "1" : "0")).join("");
+    const pattern = block.map((cell) => (cell ? "1" : "0")).join("");
     if (numberModeBlocks.includes(index - 1)) {
-      return braillePatternToNumber[pattern] || null; 
+      return braillePatternToNumber[pattern] || null;
     }
-    return braillePatternToLetter[pattern] || null; 
+    return braillePatternToLetter[pattern] || null;
   };
 
   const playAudio = (character) => {
-    if (character) {
+    if (character && soundEnabled) { // Solo reproducir si el sonido está activado
       const audio = new Audio(`src/assets/Audio/${character}.mp3`);
-      audio.play().catch(error => console.error("Error al reproducir el audio:", error));
+      audio.play().catch((error) => console.error("Error al reproducir el audio:", error));
     }
   };
 
@@ -90,22 +93,25 @@ const BrailleSlate = ({ theme }) => {
       const currentCharacter = getCharacterFromBlock(block, blockIndex);
       const lastCharacter = lastRecognizedCharacters[blockIndex];
 
-      
       if (currentCharacter !== null && currentCharacter !== lastCharacter) {
         playAudio(currentCharacter);
-        setLastRecognizedCharacters(prev => ({
+        setLastRecognizedCharacters((prev) => ({
           ...prev,
-          [blockIndex]: currentCharacter, 
+          [blockIndex]: currentCharacter,
         }));
       }
     });
-  }, [blocks]); 
+  }, [blocks]);
 
   useEffect(() => {
-    if (blocks.every(block => block.some(cell => cell))) {
-      setBlocks(prevBlocks => [...prevBlocks, [...initialBlock]]);
+    if (blocks.every((block) => block.some((cell) => cell))) {
+      setBlocks((prevBlocks) => [...prevBlocks, [...initialBlock]]);
     }
   }, [blocks]);
+
+  const toggleSound = () => {
+    setSoundEnabled((prev) => !prev); // Alternar entre sonido activado/desactivado
+  };
 
   return (
     <div className="main-container">
@@ -124,14 +130,22 @@ const BrailleSlate = ({ theme }) => {
         </div>
       </div>
       <div className="image-container">
-        <img src={theme === 'dark' ? imagenEsquina2 : imagenEsquina} alt="Imagen en esquina" className="corner-image" />
-      </div>  
+        <img src={theme === "dark" ? imagenEsquina2 : imagenEsquina} alt="Imagen en esquina" className="corner-image" />
+      </div>
       <div className="logo-container2">
-        {theme === 'dark' ? (
+        {theme === "dark" ? (
           <img src={logoOscuro} alt="Logo Oscuro" className="logo-design" />
         ) : (
           <img src={logoClaro} alt="Logo Claro" className="logo-design" />
         )}
+      </div>
+      {/* Ícono de bocina para activar/desactivar el sonido */}
+      <div className="sound-toggle" onClick={toggleSound}>
+        <FontAwesomeIcon
+          icon={soundEnabled ? faVolumeUp : faVolumeMute} // Cambiar ícono según el estado
+          className="sound-icon"
+          title={soundEnabled ? "Desactivar sonido" : "Activar sonido"}
+        />
       </div>
     </div>
   );
