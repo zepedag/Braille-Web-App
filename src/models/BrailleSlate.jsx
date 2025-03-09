@@ -4,8 +4,8 @@ import imagenEsquina from "../assets/MaquinaPerkins.png";
 import imagenEsquina2 from "../assets/MaquinaPerkinsNegro.png";
 import logoClaro from "../assets/LOGO_STEM-07.png";
 import logoOscuro from "../assets/LOGO_STEM-08.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; // Importar FontAwesome
-import { faVolumeUp, faVolumeMute } from "@fortawesome/free-solid-svg-icons"; // Importar íconos de sonido
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { faVolumeUp, faVolumeMute } from "@fortawesome/free-solid-svg-icons"; 
 
 const braillePatternToLetter = {
   "100000": "a", "101000": "b", "110000": "c", "110100": "d", "100100": "e",
@@ -31,7 +31,7 @@ const BrailleSlate = ({ theme }) => {
   const [currentBlock, setCurrentBlock] = useState(0);
   const [numberModeBlocks, setNumberModeBlocks] = useState([]);
   const [lastRecognizedCharacters, setLastRecognizedCharacters] = useState({});
-  const [soundEnabled, setSoundEnabled] = useState(true); // Estado para controlar el sonido
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -82,7 +82,7 @@ const BrailleSlate = ({ theme }) => {
   };
 
   const playAudio = (character) => {
-    if (character && soundEnabled) { // Solo reproducir si el sonido está activado
+    if (character && soundEnabled) { 
       const audio = new Audio(`src/assets/Audio/${character}.mp3`);
       audio.play().catch((error) => console.error("Error al reproducir el audio:", error));
     }
@@ -110,7 +110,7 @@ const BrailleSlate = ({ theme }) => {
   }, [blocks]);
 
   const toggleSound = () => {
-    setSoundEnabled((prev) => !prev); // Alternar entre sonido activado/desactivado
+    setSoundEnabled((prev) => !prev); 
   };
 
   return (
@@ -139,10 +139,9 @@ const BrailleSlate = ({ theme }) => {
           <img src={logoClaro} alt="Logo Claro" className="logo-design" />
         )}
       </div>
-      {/* Ícono de bocina para activar/desactivar el sonido */}
       <div className="sound-toggle" onClick={toggleSound}>
         <FontAwesomeIcon
-          icon={soundEnabled ? faVolumeUp : faVolumeMute} // Cambiar ícono según el estado
+          icon={soundEnabled ? faVolumeUp : faVolumeMute} 
           className="sound-icon"
           title={soundEnabled ? "Desactivar sonido" : "Activar sonido"}
         />

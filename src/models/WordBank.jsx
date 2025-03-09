@@ -6,6 +6,8 @@ import catarina from "../assets/Catarina.gif";
 import felicidades from "../assets/Felicidades.gif";
 import logoClaro from "../assets/LOGO_STEM-07.png";
 import logoOscuro from "../assets/LOGO_STEM-08.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
+import { faVolumeUp, faVolumeMute } from "@fortawesome/free-solid-svg-icons"; 
 
 const braillePatternToLetter = {
   "100000": "a", "101000": "b", "110000": "c", "110100": "d", "100100": "e",
@@ -53,6 +55,7 @@ const WordBank = ({ theme }) => {
   const [showCatarina, setShowCatarina] = useState(false);
   const [showFelicidades, setShowFelicidades] = useState(false);
   const [lastRecognizedCharacters, setLastRecognizedCharacters] = useState({});
+  const [soundEnabled, setSoundEnabled] = useState(true);
 
   useEffect(() => {
     if (!gameOver) {
@@ -113,9 +116,9 @@ const WordBank = ({ theme }) => {
   };
 
   const playAudio = (character) => {
-    if (character) {
+    if (character && soundEnabled) { 
       const audio = new Audio(`src/assets/Audio/${character}.mp3`);
-      audio.play().catch(error => console.error("Error al reproducir el audio:", error));
+      audio.play().catch((error) => console.error("Error al reproducir el audio:", error));
     }
   };
 
@@ -231,7 +234,9 @@ const WordBank = ({ theme }) => {
     setShowCatarina(false);
     setShowFelicidades(false);
   };
-
+  const toggleSound = () => {
+    setSoundEnabled((prev) => !prev); 
+  };
   return (
     <div className="wordBank">
       <div className="word-to-write">Palabra a escribir: {currentWord}</div>
@@ -324,6 +329,13 @@ const WordBank = ({ theme }) => {
         ) : (
           <img src={logoClaro} alt="Logo de la aplicación en modo claro" className="logo-design" />
         )}
+      </div>
+      <div className="sound-toggle" onClick={toggleSound}>
+        <FontAwesomeIcon
+          icon={soundEnabled ? faVolumeUp : faVolumeMute} 
+          className="sound-icon"
+          title={soundEnabled ? "Desactivar sonido" : "Activar sonido"}
+        />
       </div>
     </div>
   );
