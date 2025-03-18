@@ -4,8 +4,8 @@ import imagenEsquina from "../assets/MaquinaPerkins.png";
 import imagenEsquina2 from "../assets/MaquinaPerkinsNegro.png";
 import logoClaro from "../assets/LOGO_STEM-07.png";
 import logoOscuro from "../assets/LOGO_STEM-08.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
-import { faVolumeUp, faVolumeMute } from "@fortawesome/free-solid-svg-icons"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faVolumeUp, faVolumeMute } from "@fortawesome/free-solid-svg-icons";
 
 const braillePatternToLetter = {
   "100000": "a", "101000": "b", "110000": "c", "110100": "d", "100100": "e",
@@ -32,6 +32,7 @@ const BrailleSlate = ({ theme }) => {
   const [numberModeBlocks, setNumberModeBlocks] = useState([]);
   const [lastRecognizedCharacters, setLastRecognizedCharacters] = useState({});
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [showInstructions, setShowInstructions] = useState(true);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -82,7 +83,7 @@ const BrailleSlate = ({ theme }) => {
   };
 
   const playAudio = (character) => {
-    if (character && soundEnabled) { 
+    if (character && soundEnabled) {
       const audio = new Audio(`src/assets/Audio/${character}.mp3`);
       audio.play().catch((error) => console.error("Error al reproducir el audio:", error));
     }
@@ -110,11 +111,34 @@ const BrailleSlate = ({ theme }) => {
   }, [blocks]);
 
   const toggleSound = () => {
-    setSoundEnabled((prev) => !prev); 
+    setSoundEnabled((prev) => !prev);
+  };
+
+  const handleCloseModal = () => {
+    setShowInstructions(false);
   };
 
   return (
     <div className="main-container">
+      {showInstructions && (
+        <>
+          <div className="modal-overlay" onClick={handleCloseModal} />
+          <div className="instructions-modal">
+            <h2>Instrucciones</h2>
+            <p>
+              Bienvenido a la pizarra Braille. Aquí puedes practicar la escritura en Braille:
+            </p>
+            <ul>
+              <li>Usa las teclas <strong>F, D, S, J, K, L</strong> para activar o desactivar los puntos.</li>
+              <li>Presiona la <strong>barra espaciadora</strong> o las <strong>flechas</strong> para moverte entre los bloques.</li>
+            </ul>
+            <button onClick={handleCloseModal} className="close-modal-button">
+              Cerrar
+            </button>
+          </div>
+        </>
+      )}
+
       <div className="braille-slate-container">
         <div className="braille-slate">
           {blocks.map((block, blockIndex) => (
@@ -139,12 +163,15 @@ const BrailleSlate = ({ theme }) => {
           <img src={logoClaro} alt="Logo Claro" className="logo-design" />
         )}
       </div>
-      <div className="sound-toggle" onClick={toggleSound}>
+      {/*<div className="sound-toggle" onClick={toggleSound}>
         <FontAwesomeIcon
-          icon={soundEnabled ? faVolumeUp : faVolumeMute} 
+          icon={soundEnabled ? faVolumeUp : faVolumeMute}
           className="sound-icon"
           title={soundEnabled ? "Desactivar sonido" : "Activar sonido"}
         />
+      </div>*/}
+      <div className="help-toggle" onClick={() => setShowInstructions(true)}>
+        ?
       </div>
     </div>
   );

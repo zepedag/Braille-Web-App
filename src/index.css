@@ -15,6 +15,11 @@
   --sound-icon-color: #ffffffff; 
   --sound-icon-bg: #3498db; 
   --sound-icon-hover-bg: #2980b9;
+  --card-bg: #ffffff; 
+  --modal-shadow: 0 8px 20px rgba(210, 213, 214, 0.3);
+  --input-border: #04070a;
+  --input-border2: #04070a;
+  --input-border3: #04070a;
 }
 
 .dark {
@@ -36,6 +41,11 @@
   --sound-icon-color: #fff; 
   --sound-icon-bg: #16a085; 
   --sound-icon-hover-bg: #1abc9c;
+  --card-bg: #2c3e50; 
+  --modal-shadow: 0 8px 20px rgba(0, 0, 0, 0.6);
+  --input-border: #ffffffff;
+  --input-border2: #fff;
+  --input-border3: #2c3e50;
 }
 
 body {
@@ -66,6 +76,7 @@ body {
   font-size: 2.5rem;
   color: var(--text-color);
   margin-bottom: 1rem;
+  margin-top: 5rem;
 }
 
 .info-container {
@@ -144,4 +155,27 @@ body {
   .developers-section {
     border-bottom: none;
   }
+}
+.activity-description {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 2px solid var(--block-border-color);
+  border-radius: 8px;
+  background-color: var(--cell-bg3);
+  width: 80%;
+  max-width: 1200px;
+  text-align: left;
+  margin-bottom: 1rem; 
+}
+
+.activity-description h2 {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+.activity-description p {
+  font-size: 1rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
 }

@@ -85,3 +85,101 @@
 .braille-card a:hover {
   text-decoration: underline;
 }
+
+.instructions-modal {
+  position: fixed; 
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); 
+  background: var(--card-bg); 
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: var(--modal-shadow);
+  max-width: 400px; 
+  width: 90%; 
+  z-index: 1000;
+  text-align: center;
+  color: var(--text-color);
+}
+
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 999;
+}
+
+.close-modal-button {
+  background-color: var(--button-bg); 
+  color: white; 
+  font-size: 14px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.close-modal-button:hover {
+  background-color: var(--button-hover); 
+}
+
+.braille-content {
+  display: flex;
+  justify-content: space-between; 
+  margin-top: 20px;
+}
+
+
+.braille-alphabet {
+  flex: 1; 
+  margin-right: 20px; 
+}
+
+.braille-numbers {
+  flex: 1;
+}
+
+.braille-alphabet h3,
+.braille-numbers h3 {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.alphabet-grid,
+.numbers-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+}
+
+.alphabet-item,
+.number-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--cell-bg3);
+  border: 0.9px solid var(--input-border3); 
+  padding: 2px;
+  border-radius: 6px;
+  box-shadow: var(--modal-shadow);
+  font-size: 1.2rem;
+}
+
+.alphabet-item .letter,
+.number-item .number {
+  font-weight: bold;
+  color: var(--text-color);
+}
+
+.alphabet-item .braille,
+.number-item .braille {
+  margin-top: 5px;
+  color: var(--text-color);
+}

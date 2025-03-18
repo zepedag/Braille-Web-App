@@ -6,8 +6,8 @@ import catarina from "../assets/Catarina.gif";
 import felicidades from "../assets/Felicidades.gif";
 import logoClaro from "../assets/LOGO_STEM-07.png";
 import logoOscuro from "../assets/LOGO_STEM-08.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"; 
-import { faVolumeUp, faVolumeMute } from "@fortawesome/free-solid-svg-icons"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faVolumeUp, faVolumeMute } from "@fortawesome/free-solid-svg-icons";
 
 const braillePatternToLetter = {
   "100000": "a", "101000": "b", "110000": "c", "110100": "d", "100100": "e",
@@ -28,14 +28,26 @@ const NUMBER_INDICATOR = "010111";
 const keyMap = { "f": 0, "d": 1, "s": 2, "j": 3, "k": 4, "l": 5 };
 
 const basicWords = [
-  "casa", "perro", "gato", "árbol", "flor", "sol", "luna", "estrella", "cielo", "agua",
-  "fuego", "tierra", "viento", "mar", "río", "montaña", "bosque", "campo", "ciudad", "pueblo",
-  "calle", "escuela", "libro", "lápiz", "papel", "mesa", "silla", "puerta", "ventana", "pared",
-  "techo", "suelo", "cama", "almohada", "manta", "ropa", "zapato", "sombrero", "reloj", "espejo",
-  "plato", "vaso", "cuchara", "tenedor", "cuchillo", "comida", "bebida", "fruta", "verdura", "pan",
-  "canción", "corazón", "acción", "nación", "teléfono", "rápido", "público", "eléctrico", "sofá", "café",
-  "mamá", "papá", "avión", "camión", "reunión", "inspiración", "prisión", "opinión", "educación", "tradición",
-  "fácil", "difícil", "débil", "útil", "crédito", "médico", "pánico", "técnico", "música", "histórico"
+  "empresa", "mercado", "finanzas", "inversión", "estrategia", "marketing", "ventas", "producto", "servicio", "cliente",
+  "competencia", "innovación", "gestión", "liderazgo", "economía", "beneficio", "presupuesto", "contrato", "negociación", "exportación",
+ 
+  "sociedad", "cultura", "política", "economía", "historia", "geografía", "psicología", "sociología", "antropología", "derecho",
+  "comunicación", "educación", "globalización", "democracia", "justicia", "ética", "investigación", "estadística", "comportamiento", "desarrollo",
+
+  "ingeniería", "tecnología", "diseño", "construcción", "mecánica", "eléctrica", "software", "hardware", "robótica", "innovación",
+  "energía", "sistema", "proyecto", "análisis", "matemáticas", "física", "química", "materiales", "automoción", "telecomunicaciones",
+
+  "literatura", "filosofía", "arte", "lenguaje", "poesía", "teatro", "música", "cine", "historia", "religión",
+  "crítica", "creatividad", "pensamiento", "ensayo", "narrativa", "mitología", "tradición", "identidad", "cultura", "humanismo",
+
+  "biología", "química", "física", "matemáticas", "geología", "astronomía", "ecología", "genética", "evolución", "microscopio",
+  "experimento", "investigación", "teoría", "hipótesis", "laboratorio", "átomo", "molécula", "energía", "universo", "planeta",
+
+  "medicina", "salud", "enfermedad", "paciente", "hospital", "cirugía", "diagnóstico", "tratamiento", "farmacia", "vacuna",
+  "virus", "bacteria", "síntoma", "prevención", "anatomía", "fisiología", "neurología", "cardiología", "pediatría", "epidemiología",
+
+  /*"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "30", 
+  "40", "50", "60", "70", "80", "90", "100", "200", "500", "1000", "1994", "2023", "123", "999", "178", "475", "379", "126", "489"*/
 ];
 
 const WordBank = ({ theme }) => {
@@ -56,6 +68,8 @@ const WordBank = ({ theme }) => {
   const [showFelicidades, setShowFelicidades] = useState(false);
   const [lastRecognizedCharacters, setLastRecognizedCharacters] = useState({});
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [showInstructions, setShowInstructions] = useState(true);
+  const [userName, setUserName] = useState("");
 
   useEffect(() => {
     if (!gameOver) {
@@ -116,7 +130,7 @@ const WordBank = ({ theme }) => {
   };
 
   const playAudio = (character) => {
-    if (character && soundEnabled) { 
+    if (character && soundEnabled) {
       const audio = new Audio(`src/assets/Audio/${character}.mp3`);
       audio.play().catch((error) => console.error("Error al reproducir el audio:", error));
     }
@@ -234,11 +248,50 @@ const WordBank = ({ theme }) => {
     setShowCatarina(false);
     setShowFelicidades(false);
   };
+
   const toggleSound = () => {
-    setSoundEnabled((prev) => !prev); 
+    setSoundEnabled((prev) => !prev);
   };
+
+  const handleCloseModal = () => {
+    setShowInstructions(false);
+  };
+
   return (
     <div className="wordBank">
+      {showInstructions && (
+        <>
+          <div className="modal-overlay" onClick={handleCloseModal} />
+          <div className="instructions-modal">
+            <h2>Instrucciones</h2>
+            <p>
+              Bienvenido al banco de palabras. Aquí puedes practicar la escritura en Braille:
+            </p>
+            <ul>
+              <li>Usa las teclas <strong>F, D, S, J, K, L</strong> para activar o desactivar los puntos.</li>
+              <li>Presiona la <strong>barra espaciadora</strong> o las <strong>flechas</strong> para moverte entre los bloques.</li>
+              <li>Haz clic en <strong>Verificar</strong> para comprobar si la palabra es correcta.</li>
+              <li>Gana puntos por cada palabra correcta y evita cometer 3 errores.</li>
+            </ul>
+            <button onClick={handleCloseModal} className="close-modal-button">
+              Cerrar
+            </button>
+          </div>
+        </>
+      )}
+
+      <div className="user-name-input">
+        <label htmlFor="userName">Nombre:</label>
+        <input
+          id="userName"
+          type="text"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+          placeholder="Ingresa tu nombre"
+          aria-label="Ingresa tu nombre"
+        />
+      </div>
+
       <div className="word-to-write">Palabra a escribir: {currentWord}</div>
 
       <div className="braille-blocks-container" ref={blocksContainerRef}>
@@ -303,7 +356,7 @@ const WordBank = ({ theme }) => {
             Reiniciando en {countdown} segundos...
           </div>
         )}
-        <div className="score">Puntuación: {score}</div>
+        <div className="score">Puntuación de {userName || "Usuario"}: {score}</div>
         <div className="errors">Errores: {errors}</div>
       </div>
       <div className="image-container">
@@ -330,12 +383,15 @@ const WordBank = ({ theme }) => {
           <img src={logoClaro} alt="Logo de la aplicación en modo claro" className="logo-design" />
         )}
       </div>
-      <div className="sound-toggle" onClick={toggleSound}>
+      {/*<div className="sound-toggle" onClick={toggleSound}>
         <FontAwesomeIcon
           icon={soundEnabled ? faVolumeUp : faVolumeMute} 
           className="sound-icon"
           title={soundEnabled ? "Desactivar sonido" : "Activar sonido"}
         />
+      </div>*/}
+      <div className="help-toggle" onClick={() => setShowInstructions(true)}>
+        ?
       </div>
     </div>
   );

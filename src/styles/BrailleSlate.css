@@ -79,7 +79,7 @@
   z-index: 1000;
 }
 
-.sound-toggle {
+/*.sound-toggle {
   position: fixed;
   top: 100px;
   right: 20px;
@@ -98,4 +98,4 @@
 
 .sound-toggle:hover {
   background-color: var(--sound-icon-hover-bg);
-}
+}*/
