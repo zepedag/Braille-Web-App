@@ -79,6 +79,10 @@
   z-index: 1000;
 }
 
+.corner-image {
+  width: 90px;
+  height: auto;
+}
 /*.sound-toggle {
   position: fixed;
   top: 100px;

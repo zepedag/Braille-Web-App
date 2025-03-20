@@ -11,28 +11,6 @@ import logoOscuro from "./assets/LOGO_STEM-08.png";
 const Home = ({ theme }) => (
   <div className="home-container">
     <h1 className="welcome-title">Aprende y Practica con la App de Braille</h1>
-
-    <div className="activity-description">
-      <h2>¿De qué trata esta actividad?</h2>
-      <p>
-        Esta aplicación está diseñada para ayudarte a aprender y practicar el sistema de escritura Braille. 
-        A través de diferentes herramientas y ejercicios, podrás familiarizarte con el alfabeto Braille, 
-        convertir texto a Braille y viceversa, y practicar la escritura en una pizarra Braille virtual.
-      </p>
-      <h2>¿Cómo usar la aplicación?</h2>
-      <p>
-        <strong>1. Convertidor de Braille:</strong> En esta sección, puedes convertir texto normal a Braille y viceversa. 
-        Simplemente ingresa el texto en el campo correspondiente y presiona el botón para ver la conversión.
-      </p>
-      <p>
-        <strong>2. Pizarra Braille:</strong> Aquí puedes practicar la escritura en Braille utilizando una pizarra virtual. 
-        Selecciona los puntos que deseas activar y observa cómo se forma el carácter Braille.
-      </p>
-      <p>
-        <strong>3. Banco de Palabras:</strong> En esta sección, encontrarás una lista de palabras comunes en Braille 
-        para que puedas practicar y mejorar tu reconocimiento de caracteres.
-      </p>
-    </div>
     <div className="info-container">
       <div className="logo-section">
         {theme === 'dark' ? (

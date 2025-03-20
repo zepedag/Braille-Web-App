@@ -7,7 +7,7 @@ import logoOscuro from "../assets/LOGO_STEM-08.png";
 const BrailleConverter = ({ theme }) => {
   const [inputText, setInputText] = useState("");
   const [brailleText, setBrailleText] = useState("");
-  const [showInstructions, setShowInstructions] = useState(true);
+  const [showInstructions, setShowInstructions] = useState(false);
 
   
   const convertToBraille = () => {

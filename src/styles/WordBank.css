@@ -138,18 +138,6 @@
   color: var(--text-color); 
 }
 
-.image-container {
-  position: fixed;
-  top: 600px;
-  left: 40px;
-  z-index: 1000;
-}
-
-.corner-image {
-  width: 100px;
-  height: auto;
-}
-
 .braille-blocks-container::-webkit-scrollbar {
   width: 12px;
   height: 12px;

@@ -15,7 +15,7 @@
   --sound-icon-color: #ffffffff; 
   --sound-icon-bg: #3498db; 
   --sound-icon-hover-bg: #2980b9;
-  --card-bg: #ffffff; 
+  --card-bg: #d4e0ec; 
   --modal-shadow: 0 8px 20px rgba(210, 213, 214, 0.3);
   --input-border: #04070a;
   --input-border2: #04070a;
@@ -156,26 +156,4 @@ body {
     border-bottom: none;
   }
 }
-.activity-description {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 2px solid var(--block-border-color);
-  border-radius: 8px;
-  background-color: var(--cell-bg3);
-  width: 80%;
-  max-width: 1200px;
-  text-align: left;
-  margin-bottom: 1rem; 
-}
 
-.activity-description h2 {
-  font-size: 1.5rem;
-  color: var(--text-color);
-  margin-bottom: 0.5rem;
-}
-
-.activity-description p {
-  font-size: 1rem;
-  color: var(--text-color);
-  margin-bottom: 1rem;
-}

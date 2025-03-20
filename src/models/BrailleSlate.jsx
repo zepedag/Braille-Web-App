@@ -32,7 +32,7 @@ const BrailleSlate = ({ theme }) => {
   const [numberModeBlocks, setNumberModeBlocks] = useState([]);
   const [lastRecognizedCharacters, setLastRecognizedCharacters] = useState({});
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [showInstructions, setShowInstructions] = useState(true);
+  const [showInstructions, setShowInstructions] = useState(false);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -129,6 +129,7 @@ const BrailleSlate = ({ theme }) => {
               Bienvenido a la pizarra Braille. Aquí puedes practicar la escritura en Braille:
             </p>
             <ul>
+              <img src={theme === "dark" ? imagenEsquina2 : imagenEsquina} alt="Imagen en esquina" className="corner-image" />
               <li>Usa las teclas <strong>F, D, S, J, K, L</strong> para activar o desactivar los puntos.</li>
               <li>Presiona la <strong>barra espaciadora</strong> o las <strong>flechas</strong> para moverte entre los bloques.</li>
             </ul>
@@ -152,9 +153,6 @@ const BrailleSlate = ({ theme }) => {
             </div>
           ))}
         </div>
-      </div>
-      <div className="image-container">
-        <img src={theme === "dark" ? imagenEsquina2 : imagenEsquina} alt="Imagen en esquina" className="corner-image" />
       </div>
       <div className="logo-container2">
         {theme === "dark" ? (

@@ -68,7 +68,7 @@ const WordBank = ({ theme }) => {
   const [showFelicidades, setShowFelicidades] = useState(false);
   const [lastRecognizedCharacters, setLastRecognizedCharacters] = useState({});
   const [soundEnabled, setSoundEnabled] = useState(true);
-  const [showInstructions, setShowInstructions] = useState(true);
+  const [showInstructions, setShowInstructions] = useState(false);
   const [userName, setUserName] = useState("");
 
   useEffect(() => {
@@ -268,6 +268,11 @@ const WordBank = ({ theme }) => {
               Bienvenido al banco de palabras. Aquí puedes practicar la escritura en Braille:
             </p>
             <ul>
+              <img 
+                src={theme === 'dark' ? imagenEsquina2 : imagenEsquina} 
+                alt="Imagen decorativa en la esquina" 
+                className="corner-image" 
+              />
               <li>Usa las teclas <strong>F, D, S, J, K, L</strong> para activar o desactivar los puntos.</li>
               <li>Presiona la <strong>barra espaciadora</strong> o las <strong>flechas</strong> para moverte entre los bloques.</li>
               <li>Haz clic en <strong>Verificar</strong> para comprobar si la palabra es correcta.</li>
@@ -358,14 +363,7 @@ const WordBank = ({ theme }) => {
         )}
         <div className="score">Puntuación de {userName || "Usuario"}: {score}</div>
         <div className="errors">Errores: {errors}</div>
-      </div>
-      <div className="image-container">
-        <img 
-          src={theme === 'dark' ? imagenEsquina2 : imagenEsquina} 
-          alt="Imagen decorativa en la esquina" 
-          className="corner-image" 
-        />
-      </div>  
+      </div> 
       {showCatarina && (
         <div className="catarina-container">
           <img src={catarina} alt="Animación de Catarina" className="catarina-gif" />
